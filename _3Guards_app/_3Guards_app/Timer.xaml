@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="_3Guards_app.Timer">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="out"
+                     Clicked="Outoftheway" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="lblStopwatch" FontSize="45" TextColor="Black"
+               Text="{Binding}"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand">
+            </Label>
+
+            <ListView x:Name="TimingView"
+            ItemsSource="{Binding Timings}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding DisplayTiming}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="btnStart" Clicked="BtnStart_Clicked" Text="Start"></Button>
+            <Button x:Name="btnSplit" Text="Split" Clicked="BtnSplit_Clicked"></Button>
+            <Button x:Name="btnStop" Text="Stop" Clicked="BtnStop_Clicked"></Button>
+            <Button x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked"></Button>
+            <Button x:Name="btnReset" Text="Reset" Clicked="BtnReset_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
