@@ -8,15 +8,15 @@ namespace _3Guards_app
 {
     public partial class App : Application
     {
-        static ResultDatabase database;
+        static StopwatchDatabase database;
 
-        public static ResultDatabase Database
+        public static StopwatchDatabase Database
         {
             get
             {
                 if (database == null)
                 {
-                    database = new ResultDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "results.db3"));
+                    database = new StopwatchDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "stopwatchDatabase.db3"));
                 }
                 return database;
             }

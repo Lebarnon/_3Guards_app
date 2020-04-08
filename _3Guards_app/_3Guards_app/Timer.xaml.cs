@@ -10,43 +10,31 @@ namespace _3Guards_app
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Timer : ContentPage
-    {
+    {   
         readonly Stopwatch stopwatch;
         private int timingID = 0;
 
-        Result result = new Result();
-
-       
-
-        ObservableCollection<Timing> timings = new ObservableCollection<Timing>();
-        public ObservableCollection<Timing> Timings { get { return timings; } }
-        
-        
-        public class Timing
+        //public ObservableCollection<DisplayTiming> DisplayTimings { get; } = new ObservableCollection<DisplayTiming>();
+        ObservableCollection<DisplayTiming> displayTimings = new ObservableCollection<DisplayTiming>();
+        public ObservableCollection<DisplayTiming> DisplayTimings { get { return displayTimings; } }
+        public class DisplayTiming
         {
-            public string DisplayTiming { get; set; }
+            public string Duration { get; set; }
         }
-
         public Timer()
         {
             InitializeComponent();
             stopwatch = new Stopwatch();
 
-
-
-            
-
-            TimingView.ItemsSource = timings;
+            DisplayTimingsView.ItemsSource = displayTimings;
 
             //Which button should be visible when initialised
             btnStop.IsVisible = false;
             btnSplit.IsVisible = false;
             btnSave.IsVisible = false;
-
             lblStopwatch.Text = "00:00.00";
 
         }
-
         async void Outoftheway(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ResultsPage());
@@ -84,14 +72,16 @@ namespace _3Guards_app
             btnSplit.Text = "Split";
             timingID++;
             string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
-            timings.Add(new Timing { DisplayTiming = time });
+            DisplayTimings.Add(new DisplayTiming { Duration = time });
 
             
-            result.ResultList.Add(time);
+
+          
         }
 
         private void BtnStop_Clicked(object sender, EventArgs e)
         {
+            //Display Update
             btnStart.IsVisible = true;
             btnStop.IsVisible = false;
             btnSplit.IsVisible = false;
@@ -104,23 +94,26 @@ namespace _3Guards_app
         async void BtnSave_Clicked(object sender, EventArgs e)
         {
 
-            result.Date = DateTime.Now;
+           
 
-            await App.Database.SaveResultAsync(result);
+           // await App.Database.SaveResultAsync(result);
             await Navigation.PopAsync();
         }
         private void BtnReset_Clicked(object sender, EventArgs e)
         {
-            lblStopwatch.Text = "00:00.00";
-            btnStart.Text = "Start";
+            // Display Update
             stopwatch.Reset();
-            timings.Clear();
+            DisplayTimings.Clear();
             btnSave.IsVisible = false;
             btnStart.IsVisible = true;
             btnStop.IsVisible = false;
             btnSplit.IsVisible = false;
+            lblStopwatch.Text = "00:00.00";
+            btnStart.Text = "Start";
+
+            // DataUpdate
             timingID = 0;
-            App.Database.DeleteResultAsync(result);
+           
         }
     }
 }

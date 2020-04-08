@@ -17,11 +17,11 @@
                VerticalOptions="CenterAndExpand">
             </Label>
 
-            <ListView x:Name="TimingView"
-            ItemsSource="{Binding Timings}">
+            <ListView x:Name="DisplayTimingsView"
+            ItemsSource="{Binding DisplayTimings}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding DisplayTiming}" />
+                        <TextCell Text="{Binding Duration}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
