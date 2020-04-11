@@ -9,7 +9,7 @@ namespace _3Guards_app
     public partial class App : Application
     {
         static StopwatchDatabase database;
-
+        
         public static StopwatchDatabase Database
         {
             get

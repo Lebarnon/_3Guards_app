@@ -20,6 +20,17 @@ namespace _3Guards_app.Data
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
         }
+        public void Reset()
+        {
+            _database.DropTableAsync<Result>().Wait();
+            _database.DropTableAsync<Timing>().Wait();
+
+           
+
+            _database.CreateTableAsync<Result>().Wait();
+            _database.CreateTableAsync<Timing>().Wait();
+
+        }
 
         //Get the WHOLE result table as a list
         public Task<List<Result>> GetResultsAsync()
@@ -62,7 +73,7 @@ namespace _3Guards_app.Data
             return _database.Table<Timing>().ToListAsync();
         }
 
-
+            
         //Get the INDIVIDUAL timing from result table
         public Task<Timing> GetTimingAsync(int id)
         {
@@ -71,16 +82,9 @@ namespace _3Guards_app.Data
 
 
         //Creates a new timing in timing table 
-        public Task<int> SaveResultAsync(Timing timing)
+        public Task<int> SaveTimingAsync(Timing timing)
         {
-            if (timing.ID != 0)
-            {
-                return _database.UpdateAsync(timing);
-            }
-            else
-            {
-                return _database.InsertAsync(timing);
-            }
+            return _database.InsertAsync(timing);
         }
         public Task<int> DeleteTimingAsync(Timing timing)
         {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using _3Guards_app.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
 
 
 namespace _3Guards_app
@@ -13,14 +15,25 @@ namespace _3Guards_app
     {   
         readonly Stopwatch stopwatch;
         private int timingID = 0;
+        List<Timing> ListOfTimings = new List<Timing>();
 
-        //public ObservableCollection<DisplayTiming> DisplayTimings { get; } = new ObservableCollection<DisplayTiming>();
+        //For display of timing in stopwatch
         ObservableCollection<DisplayTiming> displayTimings = new ObservableCollection<DisplayTiming>();
         public ObservableCollection<DisplayTiming> DisplayTimings { get { return displayTimings; } }
+        //
+       
         public class DisplayTiming
         {
             public string Duration { get; set; }
         }
+        public static Timing FactoryOfTiming(int id, string timing)
+        {
+            return new Timing() {
+                ID = id,
+                Time = timing
+            };
+        }
+
         public Timer()
         {
             InitializeComponent();
@@ -65,18 +78,18 @@ namespace _3Guards_app
                     }
                 }
                 );
+                
             }
         }
+
+        
         private void BtnSplit_Clicked(Object sender, EventArgs e)
         {
             btnSplit.Text = "Split";
             timingID++;
-            string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
-            DisplayTimings.Add(new DisplayTiming { Duration = time });
-
-            
-
-          
+            string time = stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
+            DisplayTimings.Add(new DisplayTiming { Duration = timingID.ToString() + " : " + time });
+            ListOfTimings.Add(FactoryOfTiming(timingID, time));
         }
 
         private void BtnStop_Clicked(object sender, EventArgs e)
@@ -90,14 +103,20 @@ namespace _3Guards_app
             stopwatch.Stop();
         }
 
+       
 
         async void BtnSave_Clicked(object sender, EventArgs e)
         {
+            
+            for (int i = 0; i < ListOfTimings.Count; i++)
+            {
+                await App.Database.SaveTimingAsync(ListOfTimings[i]);
+            }
 
-           
-
-           // await App.Database.SaveResultAsync(result);
-            await Navigation.PopAsync();
+            var list = await App.Database.GetTimingsAsync();
+            var list1 = await App.Database.GetTimingAsync(1);
+            var list2 = await App.Database.GetTimingAsync(2);
+            await Navigation.PushAsync(new ResultsPage());
         }
         private void BtnReset_Clicked(object sender, EventArgs e)
         {
@@ -113,7 +132,10 @@ namespace _3Guards_app
 
             // DataUpdate
             timingID = 0;
-           
+
+            //rmb delete for debug purpose
+            App.Database.Reset();
+
         }
     }
 }
