@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
+             mc:Ignorable="d"
+             x:Class="_3Guards_app.Signature">
+    <ContentPage.Content>
+        <StackLayout>
+            <controls:SignaturePadView
+	            x:Name="ConductingSig"
+	            StrokeWidth="3"
+	            StrokeColor="Black"
+                CaptionText="Conducting"
+	            BackgroundColor="White" />
+            <controls:SignaturePadView
+	            x:Name="SupervisingSig"
+	            StrokeWidth="3"
+	            StrokeColor="Black"
+                CaptionText="Supervising"
+	            BackgroundColor="White" />
+            <controls:SignaturePadView
+	            x:Name="SafetySig"
+	            StrokeWidth="3"
+	            StrokeColor="Black"
+                CaptionText="Safety"
+	            BackgroundColor="White" />
+            <Button  x:Name="btnConfirm" Clicked="BtnConfirm_Clicked" Text="Confirm"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -13,19 +13,19 @@
         </Style>
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="StopWatch"
-                     Clicked="OnStopwatchClicked" />
-    </ContentPage.ToolbarItems>
-
-    <ListView x:Name="listView"
-              Margin="20"
-              ItemSelected="OnListViewItemSelected">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding Date}"
-                          TextColor="Black" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="listView"
+                  Margin="20"
+                  ItemSelected="OnListViewItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"
+                                  Detail="{Binding DateCreated}"
+                              TextColor="Black" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

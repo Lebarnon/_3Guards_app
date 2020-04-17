@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using _3Guards_app.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Threading.Tasks;
+
 
 
 namespace _3Guards_app
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Timer : ContentPage
+    public partial class StopwatchPage : ContentPage
     {   
         readonly Stopwatch stopwatch;
+        Result result = new Result();
         private int timingID = 0;
         List<Timing> ListOfTimings = new List<Timing>();
 
@@ -26,15 +27,14 @@ namespace _3Guards_app
         {
             public string Duration { get; set; }
         }
-        public static Timing FactoryOfTiming(int id, string timing)
+        public static Timing FactoryOfTiming(string timing)
         {
             return new Timing() {
-                ID = id,
                 Time = timing
             };
         }
 
-        public Timer()
+        public StopwatchPage()
         {
             InitializeComponent();
             stopwatch = new Stopwatch();
@@ -48,7 +48,7 @@ namespace _3Guards_app
             lblStopwatch.Text = "00:00.00";
 
         }
-        async void Outoftheway(object sender, EventArgs e)
+        async void OnResultsPageClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ResultsPage());
 
@@ -87,9 +87,9 @@ namespace _3Guards_app
         {
             btnSplit.Text = "Split";
             timingID++;
-            string time = stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
-            DisplayTimings.Add(new DisplayTiming { Duration = timingID.ToString() + " : " + time });
-            ListOfTimings.Add(FactoryOfTiming(timingID, time));
+            string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
+            DisplayTimings.Add(new DisplayTiming { Duration = time });
+            ListOfTimings.Add(FactoryOfTiming(time));
         }
 
         private void BtnStop_Clicked(object sender, EventArgs e)
@@ -113,10 +113,25 @@ namespace _3Guards_app
                 await App.Database.SaveTimingAsync(ListOfTimings[i]);
             }
 
-            var list = await App.Database.GetTimingsAsync();
-            var list1 = await App.Database.GetTimingAsync(1);
-            var list2 = await App.Database.GetTimingAsync(2);
-            await Navigation.PushAsync(new ResultsPage());
+            if (ListOfTimings.Count <= 0)
+            {
+                await App.Database.DeleteResultAsync(result);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                string resultname = await DisplayPromptAsync("Company Involved", "" ,placeholder: "Company");
+                var test = result;
+                result.DateCreated = DateTime.Now;
+                result.Name = resultname;
+                await App.Database.SaveResultAsync(result);
+                result.Timings = ListOfTimings;
+                await App.Database.PopulateResultTimingList(result);
+                
+                await Navigation.PushAsync(new Signature { BindingContext = result as Result });
+                Navigation.RemovePage(this);
+            }
+
         }
         private void BtnReset_Clicked(object sender, EventArgs e)
         {

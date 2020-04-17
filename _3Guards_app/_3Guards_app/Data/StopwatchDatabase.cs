@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using SQLite;
+using SQLitePCL;
 using _3Guards_app.Models;
 using System.Threading.Tasks;
+using SQLiteNetExtensions;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace _3Guards_app.Data
 {
     public class StopwatchDatabase
     {
         readonly SQLiteAsyncConnection _database;
-
+        
         public StopwatchDatabase(string dppath)
         {
             _database = new SQLiteAsyncConnection(dppath);
@@ -20,7 +23,9 @@ namespace _3Guards_app.Data
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
         }
-        public void Reset()
+
+        //for testing purpose only
+        public void Reset() 
         {
             _database.DropTableAsync<Result>().Wait();
             _database.DropTableAsync<Timing>().Wait();
@@ -30,6 +35,25 @@ namespace _3Guards_app.Data
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
 
+        }
+
+        public void CheckTables()
+        {
+            var isResultTable = _database.QueryAsync<Result>("select ID from Result");
+            var isTimingTable = _database.QueryAsync<Timing>("select ID from TIming");
+            if (isResultTable.Result == null)
+            {
+                _database.DropTableAsync<Result>().Wait();
+                _database.CreateTableAsync<Result>().Wait();
+            }
+            else if (isTimingTable.Result == null)
+            {
+                _database.DropTableAsync<Timing>().Wait();
+                _database.CreateTableAsync<Timing>().Wait();
+            }
+            return;
+          
+            //bool ResultTableExist = _database.GetTableInfoAsync(App.Database.Table<Result>.ToString) ;
         }
 
         //Get the WHOLE result table as a list
@@ -64,13 +88,16 @@ namespace _3Guards_app.Data
             return _database.DeleteAsync(result);
         }
 
-
+        public Task PopulateResultTimingList(Result result)
+        {
+            return _database.UpdateWithChildrenAsync(result);
+        }
 
         //FOR TIMING//
-        //Get the WHOLE timing table as a list
-        public Task<List<Timing>> GetTimingsAsync()
+        //Get the WHOLE timing table for a specific result as a list
+        public Task<List<Timing>> GetTimingsAsync(int id)
         {
-            return _database.Table<Timing>().ToListAsync();
+            return _database.Table<Timing>().Where(i => i.ResultID == id).ToListAsync();
         }
 
             

@@ -19,16 +19,21 @@
         </Style>
     </ContentPage.Resources>
 
+
+
     <ContentPage.Content>
-        <StackLayout Margin="20">
-            <ListView x:Name="TimingView"
-            ItemsSource="{Binding ResultList}">
+        <StackLayout>
+            <ListView x:Name="listView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding timings}" />
-                    </DataTemplate>
+                         <TextCell Text="{Binding Time}" />
+                    </DataTemplate> 
                 </ListView.ItemTemplate>
             </ListView>
+            
+            <Image x:Name="Conducting"/>
+            <Image x:Name="Supervising"/>
+            <Image x:Name="Safety"/>
             <Button x:Name="btnDelete" Clicked="OnDeleteButtonClicked" Text="Delete"></Button>
         </StackLayout>
     </ContentPage.Content>

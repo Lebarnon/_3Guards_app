@@ -18,21 +18,14 @@ namespace _3Guards_app
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            //listView.ItemsSource = await App.Database.GetResultsAsync();
+            listView.ItemsSource = await App.Database.GetResultsAsync();
         }
 
-
-
-        async void OnStopwatchClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new Timer());
-
-        }
-
+       
         async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
@@ -40,7 +33,7 @@ namespace _3Guards_app
                 await Navigation.PushAsync(new ResultViewPage
                 {
                     BindingContext = e.SelectedItem as Result
-                });
+                }) ;
             }
         }
     }

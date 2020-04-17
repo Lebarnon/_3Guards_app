@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 using Xamarin.Forms;
+using _3Guards_app.Models;
 
 namespace _3Guards_app
 {
@@ -17,10 +19,11 @@ namespace _3Guards_app
         {
             InitializeComponent();
         }
-        async void OnResultsClicked(object sender, EventArgs e)
+        async void OnStopwatchPageClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ResultsPage());
+            await Navigation.PushAsync(new StopwatchPage());
 
+            App.Database.CheckTables();
         }
     }
 }
