@@ -26,7 +26,9 @@
 	            StrokeColor="Black"
                 CaptionText="Safety"
 	            BackgroundColor="White" />
+            
             <Button  x:Name="btnConfirm" Clicked="BtnConfirm_Clicked" Text="Confirm"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+

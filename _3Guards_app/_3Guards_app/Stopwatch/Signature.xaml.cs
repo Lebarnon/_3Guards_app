@@ -8,11 +8,13 @@ using Xamarin.Forms.Xaml;
 using _3Guards_app.Models;
 using SignaturePad.Forms;
 
+
 namespace _3Guards_app
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Signature : ContentPage
     {
+
        
         public Signature()
         {
@@ -30,11 +32,11 @@ namespace _3Guards_app
             //byte[] sigBit = ReadFully(bitmap);
             //SaveToDisk(tempSigFileName, sigBit);
             //result.SigFileName = tempSigFileName;
-
-            SaveSig(ConductingSig, result);
-            SaveSig(SupervisingSig, result);
-            SaveSig(SafetySig, result);
-
+            ActivityIndicator activityIndicator = new ActivityIndicator { IsRunning = true };
+            await SaveSig(ConductingSig, result);
+            await SaveSig(SupervisingSig, result);
+            await SaveSig(SafetySig, result);
+            activityIndicator.IsRunning = false;
             
             await App.Database.SaveResultAsync(result);
             var res = await App.Database.GetResultsAsync();
@@ -42,9 +44,9 @@ namespace _3Guards_app
 
         }
 
-        public async void SaveSig(SignaturePadView whichSignature, Result result)
+        public async Task SaveSig(SignaturePadView whichSignature, Result result)
         {
-            Stream bitmap =  await whichSignature.GetImageStreamAsync(SignatureImageFormat.Png);
+            Stream bitmap =   await whichSignature.GetImageStreamAsync(SignatureImageFormat.Png);
             string sigOwner = whichSignature.CaptionText;
 
             string tempSigFileName = result.Name + " " + sigOwner + " " + result.DateCreated;
@@ -64,7 +66,6 @@ namespace _3Guards_app
             {
                 result.SafetySig = tempSigFileName;
             }
-            
         }
 
        
@@ -85,5 +86,6 @@ namespace _3Guards_app
                 return ms.ToArray();
             }
         }
+        
     }
 }

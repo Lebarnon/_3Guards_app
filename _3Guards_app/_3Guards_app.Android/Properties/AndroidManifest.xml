@@ -3,4 +3,17 @@
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
     <application android:label="_3Guards_app.Android"></application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <activity  android:icon="@drawable/icon" android:label="FileReceiver"  name="Something.MainActivity">
+      <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="file" />
+          <data android:mimeType="*/*" />
+          <data android:pathPattern=".*\\.md" />
+      </intent-filter>
+    </activity>
 </manifest>
+

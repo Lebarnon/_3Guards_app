@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_3Guards_app.Android", "_3G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_3Guards_app.iOS", "_3Guards_app\_3Guards_app.iOS\_3Guards_app.iOS.csproj", "{A4CF8C22-AA4A-4CF7-B6F1-8EA5C1A4C135}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_3Guards_app", "_3Guards_app\_3Guards_app\_3Guards_app.csproj", "{96A01D23-460B-49EE-A2EF-C48DAAACE83F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_3Guards_app", "_3Guards_app\_3Guards_app\_3Guards_app.csproj", "{96A01D23-460B-49EE-A2EF-C48DAAACE83F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BC24DF4-00E3-4DA1-BDFB-636D3EF40623}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
