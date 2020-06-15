@@ -1,33 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using _3Guards_app.Droid;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Java.IO;
-using Java.Nio.FileNio;
+using Xamarin.Essentials;
 
+[assembly: Xamarin.Forms.Dependency(typeof(PdfOpen))]
 namespace _3Guards_app.Droid
 {
-    class PdfOpen
+    class PdfOpen:IPdfOpen
     {
-        public void Open(string pathName)
+        
+        public void Open(string fileName)
         {
-            File file = new File(pathName);
-            Files.NewInputStream(pathName, );
-        }
-        public static void OpenFile(Activity activity, String name, string pathName)
-        {
-            File file = new File(pathName);
-            Intent intent = new Intent(Intent.ActionView);
-            intent.SetDataAndType(file.ToURI(), "application/pdf");
-            
-            activity.StartActivity(intent);
-        }
+            MainActivity.getInstance().PdfOpen(fileName);
+        }   
     }
 }

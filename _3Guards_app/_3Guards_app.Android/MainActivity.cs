@@ -3,10 +3,13 @@
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android;
+using Environment = Android.OS.Environment;
+using Android.Content;
+using Java.IO;
+using Android.Support.V4.Content;
+using Xamarin.Essentials;
 
 namespace _3Guards_app.Droid
 {
@@ -53,6 +56,25 @@ namespace _3Guards_app.Droid
                     RequestPermissions(permissions, 1);
                 }
             }
+        }
+
+        public static MainActivity getInstance()
+        {
+            return Instance;
+        }
+        public void PdfOpen(string fileName)
+        {
+            string path = System.IO.Path.Combine(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDocuments).AbsolutePath + "/" + fileName);
+
+            File file = new File(path);
+            Intent intent = new Intent(Intent.ActionView);
+            intent.SetFlags(ActivityFlags.NewTask);
+            intent.SetFlags(ActivityFlags.GrantReadUriPermission);
+
+            var uri = Xamarin.Essentials.FileProvider.GetUriForFile(Instance, Application.Context.PackageName + ".provider", file);
+            intent.SetDataAndType(uri, "application/pdf");
+            StartActivity(intent);
+            //Launcher.OpenAsync(path);
         }
     }
 }

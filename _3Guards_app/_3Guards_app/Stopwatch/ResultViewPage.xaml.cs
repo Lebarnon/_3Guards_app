@@ -21,8 +21,6 @@ namespace _3Guards_app
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ResultViewPage : ContentPage
     {
-        
-
         public ResultViewPage()
         {
             InitializeComponent();
@@ -35,7 +33,6 @@ namespace _3Guards_app
             var result = (Result)BindingContext;
             var timings = await App.Database.GetTimingsAsync(result.ID);
 
-
             listView.ItemsSource = timings;
 
             Conducting.Source = GetFromDisk(result.ConductingSig);
@@ -43,13 +40,28 @@ namespace _3Guards_app
             Safety.Source = GetFromDisk(result.SafetySig);
 
         }
-        private static ImageSource GetFromDisk(string imageFileName)
+       
+       
+        private async void GeneratePDF(object sender, EventArgs e) // Saving as PDF
         {
-            var imageAsBase64String = Xamarin.Essentials.Preferences.Get(imageFileName, string.Empty);
-
-            return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
+            var result = (Result)BindingContext;
+            List<Timing> timings = await App.Database.GetTimingsAsync(result.ID);
+            //checking permissions
+            await GetReadWriteStoragePermission();
+            
+            PdfDocument _document = new PdfDocument();
+            Debug.Assert(_document != null);
+            PdfPage page = _document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            DrawingTimings(gfx, timings);
+            //await DrawSignature(gfx, result.ConductingSig, 1);
+            Debug.Assert(gfx != null);
+            DrawSignature(gfx, result.SupervisingSig, 2);
+            Debug.Assert(gfx != null);
+            //await DrawSignature(gfx, result.SafetySig, 3);
+            DrawTitle(gfx, result.Name);
+            SaveAndOpen(_document, result, true);
         }
-
         async void OnDeleteButtonClicked(object sender, EventArgs e)
         {
             var result = (Result)BindingContext;
@@ -57,68 +69,6 @@ namespace _3Guards_app
             await Navigation.PopAsync();
 
         }
-        // generating PDF
-        private async void GeneratePDF(object sender, EventArgs e)
-        {
-            var result = (Result)BindingContext;
-            List<Timing> timings = await App.Database.GetTimingsAsync(result.ID);
-
-            await GetReadWriteStoragePermission();
-
-            PdfDocument _document = new PdfDocument();
-            PdfPage page = _document.AddPage();
-
-            //XFont font = new XFont("Times", 25, XFontStyle.Bold);
-            //page.Size = PageSize.A4;
-            //XGraphics gfx = XGraphics.FromPdfPage(page);
-            //gfx.DrawString(timings[1].Time, font, XBrushes.DarkRed, new XRect(0, 0, page.Width, page.Height), XStringFormats.TopLeft);
-
-            //test2//
-            const string text =
-              "Facin exeraessisit la consenim iureet dignibh eu facilluptat vercil dunt autpat. " +
-              "Ecte magna faccum dolor sequisc iliquat, quat, quipiss equipit accummy niate magna " +
-              "facil iure eraesequis am velit, quat atis dolore dolent luptat nulla adio odipissectet " +
-              "lan venis do essequatio conulla facillandrem zzriusci bla ad minim inis nim velit eugait " +
-              "aut aut lor at ilit ut nulla ate te eugait alit augiamet ad magnim iurem il eu feuissi.\n" +
-              "Guer sequis duis eu feugait luptat lum adiamet, si tate dolore mod eu facidunt adignisl in " +
-              "henim dolorem nulla faccum vel inis dolutpatum iusto od min ex euis adio exer sed del " +
-              "dolor ing enit veniamcon vullutat praestrud molenis ciduisim doloborem ipit nulla consequisi.\n" +
-              "Nos adit pratetu eriurem delestie del ut lumsandreet nis exerilisit wis nos alit venit praestrud " +
-              "dolor sum volore facidui blaor erillaortis ad ea augue corem dunt nis  iustinciduis euisi.\n" +
-              "Ut ulputate volore min ut nulpute dolobor sequism olorperilit autatie modit wisl illuptat dolore " +
-              "min ut in ute doloboreet ip ex et am dunt at.";
-
-            //IF ABOVE WORKS TRY THIS BELOW
-
-            string test = "";
-
-            foreach (Timing time in timings)
-            {
-                test += time.Time;
-                test += Environment.NewLine;
-            }
-
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            
-            XFont font = new XFont("Times New Roman", 10, XFontStyle.Bold);
-            XTextFormatter tf = new XTextFormatter(gfx);
-            XRect rect = new XRect(20, 100, 250, 220); //play around with this
-            gfx.DrawRectangle(XBrushes.SeaShell, rect);
-            //tf.Alignment = ParagraphAlignment.Left;
-            tf.DrawString(test, font, XBrushes.Black, rect, XStringFormats.TopLeft);
-
-            
-           
-
-            //SAVING
-            string fileName = result.Name + ".pdf";
-            // add some checks if file exist
-            DependencyService.Get<IPdfSave>().Save(_document, fileName);
-           
-            Device.OpenUri()
-            //Process.Start(fileName); //try opening saved file.
-        }
-
         public async Task GetReadWriteStoragePermission()
         {
             var status = await CheckAndRequestPermissionAsync(new ReadWriteStoragePermission());
@@ -141,6 +91,120 @@ namespace _3Guards_app
             }
 
             return status;
+        }
+
+        //PDF Methods
+        private void SaveAndOpen(PdfDocument document, Result result, bool willOpen)
+        {
+            string fileName = result.Name + ".pdf";
+
+            // add some checks if file exist (future)
+            DependencyService.Get<IPdfSave>().Save(document, fileName);
+            if(willOpen != true)
+            {
+                return;
+            }
+            else
+            {
+                DependencyService.Get<IPdfOpen>().Open(fileName);
+            }
+           
+        }
+        private void DrawingTimings(XGraphics gfx, List<Timing> timings)
+        {
+            XFont font = new XFont("Times New Roman", 10, XFontStyle.Bold);
+            XTextFormatter tf = new XTextFormatter(gfx);
+            XRect rect = new XRect(20, 100, 75, 550);
+            // Finding number of Rows needed
+            int numOfRow = 1;
+            for (int i = timings.Count(); i > 40; numOfRow++)
+            {
+                i -= 40;
+            }
+
+            // populating the rows in PDF
+            int lowerLimit = -40;
+            int upperLimit = 0;
+            for (int i = 0; i < numOfRow; i++)
+            {
+                lowerLimit += 40;
+                upperLimit += 40;
+                string temp = "";
+                if (upperLimit > timings.Count())
+                {
+                    upperLimit = timings.Count();
+                }
+                for (int z = lowerLimit; z < upperLimit; z++)
+                {
+                    temp += timings[z].Time;
+                    temp += Environment.NewLine;
+
+                }
+
+                rect = new XRect(20 + i * 75, 100, 75, 550);
+                //gfx.DrawRectangle(XBrushes.Blue, rect);
+                tf.DrawString(temp, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+            }
+        }
+
+        private void DrawSignature(XGraphics gfx, string imageFileName, int SigType)
+        {
+            var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
+            XImage image = XImage.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
+            XPoint point = new XPoint(100, 700);
+            //debug
+            Debug.Assert(image != null);
+            gfx.DrawImage(image, point);
+            //if(SigType == 1)
+            //{
+            //    gfx.DrawImage(image, point);
+            //}
+            //else if(SigType == 2)
+            //{
+            //    gfx.DrawImage(image, point);
+            //}
+            //else if(SigType == 3)
+            //{
+            //    gfx.DrawImage(image, point);
+            //}
+        }
+        //private void BeginBox(XGraphics gfx, int number)
+        //{
+           
+        //    XRect rect = new XRect(0, 20, 300, 200);
+        //    if (number % 2 == 0)
+        //        rect.X = 300 - 5;
+        //    rect.Y = 40 + ((number - 1) / 2) * (200 - 5);
+        //    rect.Inflate(-10, -10);
+        //    rect.Inflate(-10, -5);
+        //    rect.Y += 20;
+        //    rect.Height -= 20;
+
+        //    gfx.TranslateTransform(rect.X, rect.Y);
+        //}
+        public void DrawTitle(XGraphics gfx, string title)
+        {
+            XRect rect = new XRect(new XPoint(), gfx.PageSize);
+            rect.Inflate(-10, -15);
+            XFont font = new XFont("Verdana", 14, XFontStyle.Bold);
+            gfx.DrawString(title, font, XBrushes.MidnightBlue, rect, XStringFormats.TopCenter);
+
+            rect.Offset(0, 5);
+            font = new XFont("Verdana", 8, XFontStyle.Italic);
+            XStringFormat format = new XStringFormat();
+            format.Alignment = XStringAlignment.Near;
+            format.LineAlignment = XLineAlignment.Far;
+            gfx.DrawString("Authenticity withnessed by _________", font, XBrushes.DarkOrchid, rect, format);
+
+            font = new XFont("Verdana", 8);
+            format.Alignment = XStringAlignment.Center;
+            gfx.DrawString("where will this be", font, XBrushes.DarkOrchid, rect, format);
+        }
+        private static ImageSource GetFromDisk(string imageFileName)
+        {
+            var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
+
+            return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
         }
     }
 }   
