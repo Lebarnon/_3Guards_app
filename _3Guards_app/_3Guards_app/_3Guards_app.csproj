@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FileFontResolver.cs" />
+    <Compile Remove="Stopwatch\TimingListRendererDelegate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="PdfSharp.Xamarin.Forms" Version="1.0.0" />
     <PackageReference Include="PdfSharpCore" Version="1.1.26" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />

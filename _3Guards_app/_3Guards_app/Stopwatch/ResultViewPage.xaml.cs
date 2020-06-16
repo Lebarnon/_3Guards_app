@@ -50,14 +50,11 @@ namespace _3Guards_app
             await GetReadWriteStoragePermission();
             
             PdfDocument _document = new PdfDocument();
-            Debug.Assert(_document != null);
             PdfPage page = _document.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);
             DrawingTimings(gfx, timings);
             //await DrawSignature(gfx, result.ConductingSig, 1);
-            Debug.Assert(gfx != null);
-            DrawSignature(gfx, result.SupervisingSig, 2);
-            Debug.Assert(gfx != null);
+            //DrawSignature(gfx, result.SupervisingSig, 2); //FIX THIS NEXT TIME
             //await DrawSignature(gfx, result.SafetySig, 3);
             DrawTitle(gfx, result.Name);
             SaveAndOpen(_document, result, true);
@@ -167,21 +164,8 @@ namespace _3Guards_app
             //{
             //    gfx.DrawImage(image, point);
             //}
-        }
-        //private void BeginBox(XGraphics gfx, int number)
-        //{
-           
-        //    XRect rect = new XRect(0, 20, 300, 200);
-        //    if (number % 2 == 0)
-        //        rect.X = 300 - 5;
-        //    rect.Y = 40 + ((number - 1) / 2) * (200 - 5);
-        //    rect.Inflate(-10, -10);
-        //    rect.Inflate(-10, -5);
-        //    rect.Y += 20;
-        //    rect.Height -= 20;
-
-        //    gfx.TranslateTransform(rect.X, rect.Y);
-        //}
+        } //TO BE FIXED
+       
         public void DrawTitle(XGraphics gfx, string title)
         {
             XRect rect = new XRect(new XPoint(), gfx.PageSize);
