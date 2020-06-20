@@ -23,8 +23,6 @@ namespace _3Guards_app.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            PdfSharp.Xamarin.Forms.Droid.Platform.Init();
-
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

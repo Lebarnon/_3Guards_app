@@ -10,14 +10,24 @@
                      Clicked="OnResultsPageClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="lblStopwatch" FontSize="45" TextColor="Black"
+        <Grid x:Name="MyGrid" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        
+            <Label Grid.Row="0" x:Name="lblStopwatch" FontSize="45" TextColor="Black"
                Text="{Binding}"
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand">
             </Label>
-
-            <ListView x:Name="DisplayTimingsView"
+                
+            <ListView Grid.Row="1" Grid.ColumnSpan="2" x:Name="DisplayTimingsView"
             ItemsSource="{Binding DisplayTimings}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -25,12 +35,15 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
+             <!--left side button-->
+            <ImageButton x:Name="btnStartStop" Clicked="BtnStartStop_Clicked" Source="ButtIcon.png"/>
 
-            <Button x:Name="btnStart" Clicked="BtnStart_Clicked" Text="Start"></Button>
-            <Button x:Name="btnSplit" Text="Split" Clicked="BtnSplit_Clicked"></Button>
-            <Button x:Name="btnStop" Text="Stop" Clicked="BtnStop_Clicked"></Button>
-            <Button x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked"></Button>
-            <Button x:Name="btnReset" Text="Reset" Clicked="BtnReset_Clicked"></Button>
-        </StackLayout>
+            <!--right side button-->
+            <Button x:Name="btnSplitReset" Text="Split" Clicked="BtnSplitReset_Clicked"/>
+            <!--Save Button-->
+            <Button x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False"/>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
