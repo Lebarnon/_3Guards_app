@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using _3Guards_app.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-
+using Xamarin.Forms.Markup;
 
 namespace _3Guards_app
 {
@@ -39,14 +38,13 @@ namespace _3Guards_app
             InitializeComponent();
             stopwatch = new Stopwatch();
 
+            //only start button
+            btnLapReset.IsVisible = false;
+            btnStartStop.SetValue(Grid.ColumnSpanProperty, 2);
+
             DisplayTimingsView.ItemsSource = displayTimings;
 
-            //Which button should be visible when initialised
-            btnStop.IsVisible = false;
-            btnSplit.IsVisible = false;
-            btnSave.IsVisible = false;
             lblStopwatch.Text = "00:00.00";
-
         }
         async void OnResultsPageClicked(object sender, EventArgs e)
         {
@@ -54,15 +52,15 @@ namespace _3Guards_app
 
         }
 
-        public void BtnStart_Clicked(object sender, EventArgs e)
+        public void BtnStartStop_Clicked(object sender, EventArgs e)
         {
             if (!stopwatch.IsRunning)
             {
                 stopwatch.Start();
-                btnStart.IsVisible = false;
-                btnStop.IsVisible = true;
-                btnSplit.IsVisible = true;
-                btnSave.IsVisible = false;
+                //buttons
+                btnStartStop.SetValue(Grid.ColumnSpanProperty, 1);
+                btnStartStop.Text = "Stop";
+                btnLapReset.IsVisible = true;
 
                 Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
                 {
@@ -78,33 +76,43 @@ namespace _3Guards_app
                     }
                 }
                 );
-                
+            }
+            else if (stopwatch.IsRunning)
+            {
+                btnStartStop.Text = "Resume";
+                stopwatch.Stop();
             }
         }
 
         
-        private void BtnSplit_Clicked(Object sender, EventArgs e)
+        private void BtnLapReset_Clicked(Object sender, EventArgs e)
         {
-            btnSplit.Text = "Split";
-            timingID++;
-            string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
-            DisplayTimings.Add(new DisplayTiming { Duration = time });
-            ListOfTimings.Add(FactoryOfTiming(time));
+            if (!stopwatch.IsRunning)
+            {
+                // Display Update
+                stopwatch.Reset();
+                DisplayTimings.Clear();
+                btnLapReset.IsVisible = false;
+                btnStartStop.SetValue(Grid.ColumnSpanProperty, 2);
+                lblStopwatch.Text = "00:00.00";
+                btnStartStop.Text = "Start";
+                btnSave.IsVisible = false;
+
+                //rmb delete for debug purpose
+                App.Database.Reset();
+                // DataUpdate
+                timingID = 0;
+
+            }
+            else if (stopwatch.IsRunning)
+            {
+                btnLapReset.Text = "Lap";
+                timingID++;
+                string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
+                DisplayTimings.Add(new DisplayTiming { Duration = time });
+                ListOfTimings.Add(FactoryOfTiming(time));
+            }
         }
-
-        private void BtnStop_Clicked(object sender, EventArgs e)
-        {
-            //Display Update
-            btnStart.IsVisible = true;
-            btnStop.IsVisible = false;
-            btnSplit.IsVisible = false;
-            btnSave.IsVisible = true;
-            btnStart.Text = "Resume";
-            stopwatch.Stop();
-        }
-
-       
-
         async void BtnSave_Clicked(object sender, EventArgs e)
         {
             
@@ -131,25 +139,6 @@ namespace _3Guards_app
                 await Navigation.PushAsync(new Signature { BindingContext = result as Result });
                 Navigation.RemovePage(this);
             }
-
-        }
-        private void BtnReset_Clicked(object sender, EventArgs e)
-        {
-            // Display Update
-            stopwatch.Reset();
-            DisplayTimings.Clear();
-            btnSave.IsVisible = false;
-            btnStart.IsVisible = true;
-            btnStop.IsVisible = false;
-            btnSplit.IsVisible = false;
-            lblStopwatch.Text = "00:00.00";
-            btnStart.Text = "Start";
-
-            // DataUpdate
-            timingID = 0;
-
-            //rmb delete for debug purpose
-            App.Database.Reset();
 
         }
     }

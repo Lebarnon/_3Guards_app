@@ -10,18 +10,28 @@
                      Clicked="OnResultsPageClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid x:Name="MyGrid" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Grid x:Name="StopwatchGrid" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="HorizontalOptions" Value="Center"/>
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="TextColor" Value="Black"/>
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        
-            <Label Grid.Row="0" x:Name="lblStopwatch" FontSize="45" TextColor="Black"
+
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="lblStopwatch" FontSize="45" TextColor="Black"
                Text="{Binding}"
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand">
@@ -37,13 +47,11 @@
             </ListView>
             
              <!--left side button-->
-            <ImageButton x:Name="btnStartStop" Clicked="BtnStartStop_Clicked" Source="ButtIcon.png"/>
-
+            <Button Grid.Row="2" x:Name="btnStartStop" Text="Start" Clicked="BtnStartStop_Clicked"/>
             <!--right side button-->
-            <Button x:Name="btnSplitReset" Text="Split" Clicked="BtnSplitReset_Clicked"/>
+            <Button Grid.Row="2" x:Name="btnLapReset" Text="Lap" Clicked="BtnLapReset_Clicked"/>
             <!--Save Button-->
-            <Button x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False"/>
-
+            <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
