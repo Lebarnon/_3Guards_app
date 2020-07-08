@@ -25,5 +25,9 @@ namespace _3Guards_app
 
             App.Database.CheckTables();
         }
+        async void OnEmptyClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Sorry!", "This feature will be available in the future", "OK");
+        }
     }
 }

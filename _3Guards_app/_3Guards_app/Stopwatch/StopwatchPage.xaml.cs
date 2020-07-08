@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using _3Guards_app.Models;
@@ -12,7 +11,7 @@ namespace _3Guards_app
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StopwatchPage : ContentPage
     {   
-        readonly Stopwatch stopwatch;
+        readonly System.Diagnostics.Stopwatch stopwatch;
         Result result = new Result();
         private int timingID = 0;
         List<Timing> ListOfTimings = new List<Timing>();
@@ -36,7 +35,7 @@ namespace _3Guards_app
         public StopwatchPage()
         {
             InitializeComponent();
-            stopwatch = new Stopwatch();
+            stopwatch = new System.Diagnostics.Stopwatch();
 
             //only start button
             btnLapReset.IsVisible = false;
@@ -57,10 +56,18 @@ namespace _3Guards_app
             if (!stopwatch.IsRunning)
             {
                 stopwatch.Start();
-                //buttons
-                btnStartStop.SetValue(Grid.ColumnSpanProperty, 1);
+                //
                 btnStartStop.Text = "Stop";
+                btnStartStop.SetValue(Grid.ColumnSpanProperty, 1);
+                btnStartStop.SetValue(Grid.ColumnProperty, 0);
+                btnStartStop.BackgroundColor = Color.FromHex("#a60000");
+
+                btnLapReset.Text = "Lap";
+                btnLapReset.BackgroundColor = Color.White;
                 btnLapReset.IsVisible = true;
+                btnLapReset.SetValue(Grid.ColumnProperty, 1);
+
+                btnSave.IsVisible = false;
 
                 Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
                 {
@@ -79,8 +86,13 @@ namespace _3Guards_app
             }
             else if (stopwatch.IsRunning)
             {
-                btnStartStop.Text = "Resume";
                 stopwatch.Stop();
+                btnStartStop.Text = "Resume";
+                btnStartStop.BackgroundColor = Color.White;
+
+                btnLapReset.Text = "Reset";
+                btnLapReset.BackgroundColor = Color.FromHex("#a60000");
+                btnSave.IsVisible = true;
             }
         }
 
@@ -92,10 +104,14 @@ namespace _3Guards_app
                 // Display Update
                 stopwatch.Reset();
                 DisplayTimings.Clear();
+
                 btnLapReset.IsVisible = false;
                 btnStartStop.SetValue(Grid.ColumnSpanProperty, 2);
-                lblStopwatch.Text = "00:00.00";
+                btnStartStop.BackgroundColor = Color.White;
                 btnStartStop.Text = "Start";
+
+                lblStopwatch.Text = "00:00.00";
+               
                 btnSave.IsVisible = false;
 
                 //rmb delete for debug purpose

@@ -16,7 +16,7 @@
                     <Setter Property="HorizontalOptions" Value="Center"/>
                     <Setter Property="VerticalOptions" Value="Center"/>
                     <Setter Property="TextColor" Value="Black"/>
-                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontSize" Value="15"/>
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Grid.Resources>
@@ -36,17 +36,17 @@
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand">
             </Label>
-                
+
             <ListView Grid.Row="1" Grid.ColumnSpan="2" x:Name="DisplayTimingsView"
             ItemsSource="{Binding DisplayTimings}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Duration}" />
+                        <TextCell Text="{Binding Duration}" TextColor="Black"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-             <!--left side button-->
+
+            <!--left side button-->
             <Button Grid.Row="2" x:Name="btnStartStop" Text="Start" Clicked="BtnStartStop_Clicked"/>
             <!--right side button-->
             <Button Grid.Row="2" x:Name="btnLapReset" Text="Lap" Clicked="BtnLapReset_Clicked"/>

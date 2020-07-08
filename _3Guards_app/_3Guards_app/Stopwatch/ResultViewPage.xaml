@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:pdf="clr-namespace:PdfSharp.Xamarin.Forms;assembly=PdfSharp.Xamarin.Forms"
              mc:Ignorable="d"
              x:Class="_3Guards_app.ResultViewPage">
     
@@ -17,22 +16,27 @@
             <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Signatures"
+                 Clicked="OnSignatureViewClicked"
+                 Order="Secondary"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        
         <StackLayout x:Name="mainView">
             <ListView x:Name="listView" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                         <TextCell Text="{Binding Time}" />
+                         <TextCell Text="{Binding Time}" TextColor="Black"/>
                     </DataTemplate> 
                 </ListView.ItemTemplate>
             </ListView>
             
-            <Image x:Name="Conducting"/>
+            <!--<Image x:Name="Conducting"/>
             <Image x:Name="Supervising"/>
-            <Image x:Name="Safety"/>
+            <Image x:Name="Safety"/>-->
             <Button Text="Generate PDF" HorizontalOptions="Center" Clicked="GeneratePDF" />
-            <Button x:Name="btnDelete" Clicked="OnDeleteButtonClicked" Text="Delete"></Button>
+            <!--<Button x:Name="btnDelete" Clicked="OnDeleteButtonClicked" Text="Delete"></Button>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

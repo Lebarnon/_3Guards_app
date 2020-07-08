@@ -19,19 +19,12 @@ namespace _3Guards_app
         public Signature()
         {
             InitializeComponent();
-           
-
         }
 
         private async void BtnConfirm_Clicked(object sender, EventArgs e)
         {
             var result = (Result)BindingContext;
-            //Stream bitmap = await signatureView.GetImageStreamAsync(SignatureImageFormat.Png);
-            //string tempSigFileName = result.Name + result.DateCreated;
-
-            //byte[] sigBit = ReadFully(bitmap);
-            //SaveToDisk(tempSigFileName, sigBit);
-            //result.SigFileName = tempSigFileName;
+           
             ActivityIndicator activityIndicator = new ActivityIndicator { IsRunning = true };
             await SaveSig(ConductingSig, result);
             await SaveSig(SupervisingSig, result);

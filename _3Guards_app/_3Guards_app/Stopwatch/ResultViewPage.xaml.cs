@@ -15,6 +15,7 @@ using PdfSharpCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 using PdfSharpCore.Drawing.Layout;
+using _3Guards_app.Stopwatch;
 
 namespace _3Guards_app
 {
@@ -35,13 +36,22 @@ namespace _3Guards_app
 
             listView.ItemsSource = timings;
 
-            Conducting.Source = GetFromDisk(result.ConductingSig);
-            Supervising.Source = GetFromDisk(result.SupervisingSig);
-            Safety.Source = GetFromDisk(result.SafetySig);
+            //Conducting.Source = GetFromDisk(result.ConductingSig);
+            //Supervising.Source = GetFromDisk(result.SupervisingSig);
+            //Safety.Source = GetFromDisk(result.SafetySig);
 
         }
-       
-       
+        async void OnSignatureViewClicked(object sender, EventArgs e)
+        {
+
+            await Navigation.PushAsync(new SignatureViewPage
+            {
+                BindingContext = (Result)BindingContext as Result
+            }) ;
+            
+        }
+
+
         private async void GeneratePDF(object sender, EventArgs e) // Saving as PDF
         {
             var result = (Result)BindingContext;
@@ -52,7 +62,7 @@ namespace _3Guards_app
             PdfDocument _document = new PdfDocument();
             PdfPage page = _document.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);
-            DrawingTimings(gfx, timings);
+            DrawTimings(gfx, timings);
             //await DrawSignature(gfx, result.ConductingSig, 1);
             //DrawSignature(gfx, result.SupervisingSig, 2); //FIX THIS NEXT TIME
             //await DrawSignature(gfx, result.SafetySig, 3);
@@ -107,13 +117,13 @@ namespace _3Guards_app
             }
            
         }
-        private void DrawingTimings(XGraphics gfx, List<Timing> timings)
+        private void DrawTimings(XGraphics gfx, List<Timing> timings)
         {
-            XFont font = new XFont("Times New Roman", 10, XFontStyle.Bold);
+            XFont font = new XFont("Times New Roman", 10.0, XFontStyle.Bold);
             XTextFormatter tf = new XTextFormatter(gfx);
             XRect rect = new XRect(20, 100, 75, 550);
             // Finding number of Rows needed
-            int numOfRow = 1;
+            int numOfRow = 1;  
             for (int i = timings.Count(); i > 40; numOfRow++)
             {
                 i -= 40;

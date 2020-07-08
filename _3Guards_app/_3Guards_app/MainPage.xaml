@@ -4,17 +4,66 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="_3Guards_app.MainPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Stopwatch"
-                     Clicked="OnStopwatchPageClicked" />
-    </ContentPage.ToolbarItems>
+             x:Class="_3Guards_app.MainPage"
+             Title="3 Guards">
+        
+    <NavigationPage.TitleView>
+        <Frame HasShadow="True" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="White" CornerRadius="5" WidthRequest="50" HeightRequest="50" Padding="0">
+            <Image Source="_3GuardsLogoMain.png"
+               VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand"
+               BackgroundColor="Transparent"/>
+        </Frame>
+    </NavigationPage.TitleView>
     <StackLayout>
         <!-- Place new controls here -->
-        
-        <Label Text="Welcome to 3 Guards App" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+            <Grid x:Name="StopwatchGrid" Margin="10">
+                
+                <Grid.Resources>
+                    <Style TargetType="ImageButton">
+                        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                        <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                        <Setter Property="BackgroundColor" Value="White"/>
+                    </Style>
+                    <Style TargetType="Frame">
+                        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                        <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="BackgroundColor" Value="White"/>
+                        <Setter Property="Margin" Value="10,10,0,10"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
+                <Frame Grid.Row="0" Grid.Column="0" HasShadow="True">
+                    <ImageButton  Source="StopwatchMain.png" Clicked="OnStopwatchPageClicked"/>
+                </Frame>
+                <Frame Grid.Row="0" Grid.Column="1" HasShadow="True">
+                <ImageButton  Source="SafetyMain.png" Clicked="OnEmptyClicked"/>
+                </Frame>
+                <Frame Grid.Row="1" Grid.Column="0" HasShadow="True">
+                <ImageButton  Source="DOHelperMain.png" Clicked="OnEmptyClicked"/>
+                </Frame>
+                <Frame Grid.Row="1" Grid.Column="1" HasShadow="True">
+                <ImageButton  Source="RemindersMain.png" Clicked="OnEmptyClicked"/>
+                </Frame>    
+            <!--<ImageButton Grid.Row="0" Grid.Column="0" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
+                <ImageButton Grid.Row="0" Grid.Column="1" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
+                <ImageButton Grid.Row="1" Grid.Column="0" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
+                <ImageButton Grid.Row="1" Grid.Column="1" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
+                <ImageButton Grid.Row="2" Grid.Column="0" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
+                <ImageButton Grid.Row="2" Grid.Column="1" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>-->
+            </Grid>
+       
+    </StackLayout>
 </ContentPage>

@@ -7,28 +7,39 @@
              mc:Ignorable="d"
              x:Class="_3Guards_app.Signature">
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.25*"/>
+            </Grid.RowDefinitions>
             <controls:SignaturePadView
 	            x:Name="ConductingSig"
+                Grid.Row="0"
+                VerticalOptions="FillAndExpand"
 	            StrokeWidth="3"
 	            StrokeColor="Black"
                 CaptionText="Conducting"
 	            BackgroundColor="White" />
             <controls:SignaturePadView
 	            x:Name="SupervisingSig"
+                Grid.Row="1"
+                VerticalOptions="FillAndExpand"
 	            StrokeWidth="3"
 	            StrokeColor="Black"
                 CaptionText="Supervising"
 	            BackgroundColor="White" />
             <controls:SignaturePadView
 	            x:Name="SafetySig"
+                Grid.Row="2"
+                VerticalOptions="FillAndExpand"
 	            StrokeWidth="3"
 	            StrokeColor="Black"
                 CaptionText="Safety"
 	            BackgroundColor="White" />
-            
-            <Button  x:Name="btnConfirm" Clicked="BtnConfirm_Clicked" Text="Confirm"></Button>
-        </StackLayout>
+            <Button  x:Name="btnConfirm" Grid.Row="3" Clicked="BtnConfirm_Clicked" Text="Confirm" CornerRadius="5"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
 

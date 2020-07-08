@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="_3Guards_app.Stopwatch.SignatureViewPage">
+    <ContentView.Content>
+        <Grid x:Name="Signatureview">
+            <Grid.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="25"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="Conducting" Grid.Row="0"/>
+            <Label Text="Conducting"/>
+            <Image x:Name="Supervising" Grid.Row="1"/>
+            <Label Text="Supervising"/>
+            <Image x:Name="Safety" Grid.Row="2"/>
+            <Label Text="Safety"/>
+        </Grid>
+    </ContentView.Content>
+</ContentPage>

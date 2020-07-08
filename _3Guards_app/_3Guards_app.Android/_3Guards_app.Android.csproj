@@ -78,7 +78,6 @@
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\_3Guards_app\_3Guards_app.csproj">
       <Project>{216348EB-FFA7-4300-BFFE-A72E9E4768EA}</Project>
@@ -119,7 +118,19 @@
     <AndroidResource Include="Resources\xml\provider_paths.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ButtIcon.png" />
+    <AndroidResource Include="Resources\drawable\StopwatchMain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SafetyMain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\DOHelperMain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\RemindersMain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\_3GuardsLogoMain.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
