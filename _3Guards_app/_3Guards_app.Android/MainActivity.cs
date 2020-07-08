@@ -25,6 +25,7 @@ namespace _3Guards_app.Droid
 
             base.OnCreate(savedInstanceState);
 
+            PdfSharp.Xamarin.Forms.Droid.Platform.Init();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 

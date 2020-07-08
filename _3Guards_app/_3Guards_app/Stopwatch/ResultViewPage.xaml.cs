@@ -1,21 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using PdfSharp.Xamarin.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using _3Guards_app.Models;
 using static Xamarin.Essentials.Permissions;
 using PdfSharpCore.Pdf;
-using PdfSharpCore.Drawing;
-using PdfSharpCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 using PdfSharpCore.Drawing.Layout;
 using _3Guards_app.Stopwatch;
+using PdfSharpCore.Drawing;
 
 namespace _3Guards_app
 {
@@ -119,7 +116,8 @@ namespace _3Guards_app
         }
         private void DrawTimings(XGraphics gfx, List<Timing> timings)
         {
-            XFont font = new XFont("Times New Roman", 10.0, XFontStyle.Bold);
+            //GlobalFontSettings.FontResolver = new FileFontResolver();
+            XFont font = new XFont("sans-serif", 10, XFontStyle.Bold);
             XTextFormatter tf = new XTextFormatter(gfx);
             XRect rect = new XRect(20, 100, 75, 550);
             // Finding number of Rows needed
@@ -200,5 +198,7 @@ namespace _3Guards_app
 
             return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
         }
+       
+        
     }
 }   

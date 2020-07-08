@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="PdfSharp.Xamarin.Forms" Version="1.0.0" />
-    <PackageReference Include="PdfSharpCore" Version="1.1.26" />
+    <PackageReference Include="PdfSharpCore" Version="1.2.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
     <PackageReference Include="SQLiteNetExtensions.Async" Version="2.1.0" />
