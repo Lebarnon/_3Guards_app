@@ -6,6 +6,9 @@
              xmlns:controls="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
              mc:Ignorable="d"
              x:Class="_3Guards_app.Signature">
+    <NavigationPage.TitleView>
+        <Label Text="Signature" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -31,12 +34,12 @@
                 CaptionText="Supervising"
 	            BackgroundColor="White" />
             <controls:SignaturePadView
-	            x:Name="SafetySig"
+	            x:Name="NeutralSig"
                 Grid.Row="2"
                 VerticalOptions="FillAndExpand"
 	            StrokeWidth="3"
 	            StrokeColor="Black"
-                CaptionText="Safety"
+                CaptionText="Neutral"
 	            BackgroundColor="White" />
             <Button  x:Name="btnConfirm" Grid.Row="3" Clicked="BtnConfirm_Clicked" Text="Confirm" CornerRadius="5"/>
         </Grid>

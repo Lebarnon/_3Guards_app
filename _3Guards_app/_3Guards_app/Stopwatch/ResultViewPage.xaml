@@ -5,38 +5,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="_3Guards_app.ResultViewPage">
-    
-    <ContentPage.Resources>
-        <Style TargetType= "Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
-            <Setter Property="FontSize" Value="Medium"/>
-            <Setter Property="BackgroundColor" Value="#1976D2"/>
-            <Setter Property="TextColor" Value="White"/>
-            <Setter Property="CornerRadius" Value="5"/>
-        </Style>
-    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Label Text="{Binding Name}" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+    </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Signatures"
                  Clicked="OnSignatureViewClicked"
                  Order="Secondary"
                  Priority="0" />
+        <ToolbarItem Text="Save as PDF"
+                 Clicked="GeneratePDF"
+                 Order="Secondary"
+                 Priority="1" />
+        <ToolbarItem Text="Delete"
+                 Clicked="OnDeleteButtonClicked"
+                 Order="Secondary"
+                 Priority="2" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout x:Name="mainView">
-            <ListView x:Name="listView" >
+            <ListView x:Name="listView" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                          <TextCell Text="{Binding Time}" TextColor="Black"/>
                     </DataTemplate> 
                 </ListView.ItemTemplate>
             </ListView>
-            
-            <!--<Image x:Name="Conducting"/>
-            <Image x:Name="Supervising"/>
-            <Image x:Name="Safety"/>-->
-            <Button Text="Generate PDF" HorizontalOptions="Center" Clicked="GeneratePDF" />
-            <!--<Button x:Name="btnDelete" Clicked="OnDeleteButtonClicked" Text="Delete"></Button>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="_3Guards_app.StopwatchPage">
+<ContentPage
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            x:Class="_3Guards_app.StopwatchPage">
+    <NavigationPage.TitleView>
+        <!--<Label Text="Stopwatch" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>-->
+    </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Results"
                      Clicked="OnResultsPageClicked" />
@@ -18,13 +22,15 @@
                     <Setter Property="TextColor" Value="Black"/>
                     <Setter Property="FontSize" Value="15"/>
                     <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                    <Setter Property="BackgroundColor" Value="White"/>
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
+                <RowDefinition Height="1.25*"/>
+                <RowDefinition Height="2.25*"/>
                 <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -37,7 +43,7 @@
                VerticalOptions="CenterAndExpand">
             </Label>
 
-            <ListView Grid.Row="1" Grid.ColumnSpan="2" x:Name="DisplayTimingsView"
+            <ListView Grid.Row="1" Grid.ColumnSpan="2" x:Name="DisplayTimingsView" SelectionMode="None"
             ItemsSource="{Binding DisplayTimings}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -51,7 +57,7 @@
             <!--right side button-->
             <Button Grid.Row="2" x:Name="btnLapReset" Text="Lap" Clicked="BtnLapReset_Clicked"/>
             <!--Save Button-->
-            <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False"/>
+            <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False" Margin="0,0,25,0"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

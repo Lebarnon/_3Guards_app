@@ -23,7 +23,7 @@ namespace _3Guards_app.Stopwatch
 
             Conducting.Source = GetFromDisk(result.ConductingSig);
             Supervising.Source = GetFromDisk(result.SupervisingSig);
-            Safety.Source = GetFromDisk(result.SafetySig);
+            Neutral.Source = GetFromDisk(result.NeutralSig);
         }
         private static ImageSource GetFromDisk(string imageFileName)
         {

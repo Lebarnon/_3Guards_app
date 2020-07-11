@@ -30,8 +30,6 @@ namespace _3Guards_app.Data
             _database.DropTableAsync<Result>().Wait();
             _database.DropTableAsync<Timing>().Wait();
 
-           
-
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
 
@@ -83,9 +81,14 @@ namespace _3Guards_app.Data
             }
         }
 
-        public Task<int> DeleteResultAsync(Result result)
+        public async Task<int> DeleteResultAsync(Result result)
         {
-            return _database.DeleteAsync(result);
+            var timings = await App.Database.GetTimingsAsync(result.ID);
+            foreach (var Timing in timings)
+            {
+                await _database.DeleteAsync(Timing);
+            }
+            return await _database.DeleteAsync(result);
         }
 
         public Task PopulateResultTimingList(Result result)

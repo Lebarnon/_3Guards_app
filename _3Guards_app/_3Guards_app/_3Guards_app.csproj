@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Compile Remove="FileFontResolver.cs" />
+    <Compile Remove="StopBackContentPage.cs" />
     <Compile Remove="Stopwatch\TimingListRendererDelegate.cs" />
   </ItemGroup>
 

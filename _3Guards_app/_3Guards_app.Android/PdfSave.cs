@@ -17,7 +17,7 @@ namespace _3Guards_app.Droid
 			
 			global::Xamarin.Forms.Application.Current.MainPage.DisplayAlert(
 				title: "Success",
-				message: $"Your PDF generated and saved @ {path}",
+				message: $"Your PDF generated and saved in Documents",
 				cancel: "OK");
 			
 		}

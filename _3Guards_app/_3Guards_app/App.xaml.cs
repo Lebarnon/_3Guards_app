@@ -16,7 +16,7 @@ namespace _3Guards_app
             {
                 if (database == null)
                 {
-                    database = new StopwatchDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "stopwatchDatabase.db3"));
+                    database = new StopwatchDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "stopwatchResultDatabase.db3"));
                 }
                 return database;
             }
@@ -24,6 +24,7 @@ namespace _3Guards_app
         public App()
         {
             InitializeComponent();
+            
             MainPage = new NavigationPage(new MainPage());
         }
 

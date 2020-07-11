@@ -5,27 +5,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="_3Guards_app.Stopwatch.SignatureViewPage">
-    <ContentView.Content>
-        <Grid x:Name="Signatureview">
+    <NavigationPage.TitleView>
+        <Label Text="Signatures" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid x:Name="Signatureview" Margin="10,10,10,10">
             <Grid.Resources>
                 <Style TargetType="Image">
-                    <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Center"/>
                 </Style>
                 <Style TargetType="Label">
-                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="HorizontalOptions" Value="Center"/>
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
             <Image x:Name="Conducting" Grid.Row="0"/>
-            <Label Text="Conducting"/>
-            <Image x:Name="Supervising" Grid.Row="1"/>
-            <Label Text="Supervising"/>
-            <Image x:Name="Safety" Grid.Row="2"/>
-            <Label Text="Safety"/>
+            <Label Text="Conducting" Grid.Row="1"/>
+            <Image x:Name="Supervising" Grid.Row="2"/>
+            <Label Text="Supervising" Grid.Row="3"/>
+            <Image x:Name="Neutral" Grid.Row="4"/>
+            <Label Text="Neutral" Grid.Row="5"/>
         </Grid>
-    </ContentView.Content>
+    </ContentPage.Content>
 </ContentPage>

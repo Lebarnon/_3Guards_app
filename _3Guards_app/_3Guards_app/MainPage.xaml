@@ -8,16 +8,18 @@
              Title="3 Guards">
         
     <NavigationPage.TitleView>
-        <Frame HasShadow="True" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="White" CornerRadius="5" WidthRequest="50" HeightRequest="50" Padding="0">
+        <Label Text="3 Guards" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+        <!--<Frame HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" CornerRadius="5" WidthRequest="50" HeightRequest="50" Padding="0">
             <Image Source="_3GuardsLogoMain.png"
-               VerticalOptions="FillAndExpand"
-               HorizontalOptions="FillAndExpand"
-               BackgroundColor="Transparent"/>
-        </Frame>
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               BackgroundColor="Transparent"
+                   />
+        </Frame>-->
     </NavigationPage.TitleView>
     <StackLayout>
         <!-- Place new controls here -->
-            <Grid x:Name="StopwatchGrid" Margin="10">
+            <Grid x:Name="StopwatchGrid" Margin="10,10,10,10">
                 
                 <Grid.Resources>
                     <Style TargetType="ImageButton">
@@ -30,7 +32,7 @@
                         <Setter Property="VerticalOptions" Value="FillAndExpand"/>
                         <Setter Property="CornerRadius" Value="10"/>
                         <Setter Property="BackgroundColor" Value="White"/>
-                        <Setter Property="Margin" Value="10,10,0,10"/>
+                    <Setter Property="Margin" Value="5,5,5,5"/>
                     <Setter Property="Padding" Value="0"/>
                 </Style>
                 </Grid.Resources>

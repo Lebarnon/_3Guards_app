@@ -15,7 +15,7 @@ namespace _3Guards_app.Models
 
         public string ConductingSig { get; set; }
         public string SupervisingSig { get; set; }
-        public string SafetySig { get; set; }
+        public string NeutralSig { get; set; }
 
         [OneToMany]
         public List<Timing> Timings { get; set; }

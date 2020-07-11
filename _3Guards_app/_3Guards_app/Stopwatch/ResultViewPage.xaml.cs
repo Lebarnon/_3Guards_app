@@ -14,6 +14,7 @@ using PdfSharpCore.Drawing.Layout;
 using _3Guards_app.Stopwatch;
 using PdfSharpCore.Drawing;
 
+
 namespace _3Guards_app
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -61,7 +62,7 @@ namespace _3Guards_app
             XGraphics gfx = XGraphics.FromPdfPage(page);
             DrawTimings(gfx, timings);
             //await DrawSignature(gfx, result.ConductingSig, 1);
-            //DrawSignature(gfx, result.SupervisingSig, 2); //FIX THIS NEXT TIME
+            /*DrawSignature(gfx, result.SupervisingSig, 2);*/ //FIX THIS NEXT TIME
             //await DrawSignature(gfx, result.SafetySig, 3);
             DrawTitle(gfx, result.Name);
             SaveAndOpen(_document, result, true);
@@ -96,8 +97,8 @@ namespace _3Guards_app
 
             return status;
         }
-
         //PDF Methods
+        #region
         private void SaveAndOpen(PdfDocument document, Result result, bool willOpen)
         {
             string fileName = result.Name + ".pdf";
@@ -119,7 +120,7 @@ namespace _3Guards_app
             //GlobalFontSettings.FontResolver = new FileFontResolver();
             XFont font = new XFont("sans-serif", 10, XFontStyle.Bold);
             XTextFormatter tf = new XTextFormatter(gfx);
-            XRect rect = new XRect(20, 100, 75, 550);
+            XRect rect = new XRect(30, 100, 75, 550);
             // Finding number of Rows needed
             int numOfRow = 1;  
             for (int i = timings.Count(); i > 40; numOfRow++)
@@ -146,16 +147,19 @@ namespace _3Guards_app
 
                 }
 
-                rect = new XRect(20 + i * 75, 100, 75, 550);
+                rect = new XRect(30 + i * 75, 100, 75, 550);
                 //gfx.DrawRectangle(XBrushes.Blue, rect);
                 tf.DrawString(temp, font, XBrushes.Black, rect, XStringFormats.TopLeft);
             }
         }
 
+        
         private void DrawSignature(XGraphics gfx, string imageFileName, int SigType)
         {
             var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
             XImage image = XImage.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
+
+
             XPoint point = new XPoint(100, 700);
             //debug
             Debug.Assert(image != null);
@@ -192,13 +196,14 @@ namespace _3Guards_app
             format.Alignment = XStringAlignment.Center;
             gfx.DrawString("where will this be", font, XBrushes.DarkOrchid, rect, format);
         }
+        #endregion
         private static ImageSource GetFromDisk(string imageFileName)
         {
             var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
 
             return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
         }
+
        
-        
     }
 }   

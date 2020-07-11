@@ -23,18 +23,28 @@ namespace _3Guards_app
 
         private async void BtnConfirm_Clicked(object sender, EventArgs e)
         {
-            var result = (Result)BindingContext;
-           
-            ActivityIndicator activityIndicator = new ActivityIndicator { IsRunning = true };
-            await SaveSig(ConductingSig, result);
-            await SaveSig(SupervisingSig, result);
-            await SaveSig(SafetySig, result);
-            activityIndicator.IsRunning = false;
-            
-            await App.Database.SaveResultAsync(result);
-            var res = await App.Database.GetResultsAsync();
-            Navigation.RemovePage(this);
+            Stream ConductingSigbitmap = await ConductingSig.GetImageStreamAsync(SignatureImageFormat.Png);
+            Stream SupervisingSigbitmap = await SupervisingSig.GetImageStreamAsync(SignatureImageFormat.Png);
+            Stream SafetySigbitmap = await NeutralSig.GetImageStreamAsync(SignatureImageFormat.Png);
+            if (ConductingSigbitmap == null || SupervisingSigbitmap == null || SafetySigbitmap == null)
+            {
+                await DisplayAlert("Alert", "Please get the required signature to Proceed", "OK");
+                return;
+            }
+            else
+            {
+                var result = (Result)BindingContext;
 
+                ActivityIndicator activityIndicator = new ActivityIndicator { IsRunning = true };
+                await SaveSig(ConductingSig, result);
+                await SaveSig(SupervisingSig, result);
+                await SaveSig(NeutralSig, result);
+                activityIndicator.IsRunning = false;
+
+                await App.Database.SaveResultAsync(result);
+                await Navigation.PopModalAsync();
+                
+            }
         }
 
         public async Task SaveSig(SignaturePadView whichSignature, Result result)
@@ -55,9 +65,9 @@ namespace _3Guards_app
             {
                 result.SupervisingSig = tempSigFileName;
             }
-            else if (sigOwner == "Safety")
+            else if (sigOwner == "Neutral")
             {
-                result.SafetySig = tempSigFileName;
+                result.NeutralSig = tempSigFileName;
             }
         }
 

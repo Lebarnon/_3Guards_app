@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="_3Guards_app.ResultsPage">
+    <NavigationPage.TitleView>
+        <Label Text="Results" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+    </NavigationPage.TitleView>
     <ContentPage.Resources>
         <!--Implicit Styles-->
         <Style TargetType="{x:Type ListView}">
@@ -12,17 +15,33 @@
                     Value="{StaticResource AppBackgroundcolor}"/>
         </Style>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete All"
+                 Clicked="OnDeleteAllButtonClicked"
+                 Order="Secondary"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="listView"
-                  Margin="20"
-                  ItemSelected="OnListViewItemSelected">
+                    Margin="20"
+                    SelectionMode="Single"
+                    
+                    ItemSelected="OnListViewItemSelected" 
+                    HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}"
-                                  Detail="{Binding DateCreated}"
-                              TextColor="Black" />
+                        <ViewCell Height="60">
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete" 
+                                          Clicked="OnItemDeleteClicked"/>
+                            </ViewCell.ContextActions>
+                            <StackLayout VerticalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}"  TextColor="Black" FontSize="16" />
+                                <Label Text="{Binding DateCreated}"  TextColor="Black" FontSize="14" />
+                            </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
