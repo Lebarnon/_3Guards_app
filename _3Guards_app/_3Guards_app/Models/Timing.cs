@@ -8,6 +8,7 @@ namespace _3Guards_app.Models
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+
         public string Time { get; set; }
 
         [ForeignKey(typeof(Result))]

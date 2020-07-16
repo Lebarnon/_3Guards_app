@@ -29,9 +29,10 @@ namespace _3Guards_app.Droid
             base.OnCreate(savedInstanceState);
 
 
-            PdfSharp.Xamarin.Forms.Droid.Platform.Init();
+           
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            PdfSharp.Xamarin.Forms.Droid.Platform.Init();
 
             CheckAppPermissions();
 
@@ -79,63 +80,6 @@ namespace _3Guards_app.Droid
             StartActivity(intent);
             //Launcher.OpenAsync(path);
         }       
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    // check if the current item id 
-        //    // is equals to the back button id
-        //    if (item.ItemId == 16908332)
-        //    {
-        //        // retrieve the current xamarin forms page instance
-        //        var currentpage = (StopBackContentPage)
-        //        Xamarin.Forms.Application.
-        //        Current.MainPage.Navigation.
-        //        NavigationStack.LastOrDefault();
-
-        //        // check if the page has subscribed to 
-        //        // the custom back button event
-        //        if (currentpage?.CustomBackButtonAction != null)
-        //        {
-        //            // invoke the Custom back button action
-        //            currentpage?.CustomBackButtonAction.Invoke();
-        //            // and disable the default back button action
-        //            return false;
-        //        }
-
-        //        // if its not subscribed then go ahead 
-        //        // with the default back button action
-        //        return base.OnOptionsItemSelected(item);
-        //    }
-        //    else
-        //    {
-        //        // since its not the back button 
-        //        //click, pass the event to the base
-        //        return base.OnOptionsItemSelected(item);
-        //    }
-        //}
-
-        //public override void OnBackPressed()
-        //{
-        //    // this is not necessary, but in Android user 
-        //    // has both Nav bar back button and
-        //    // physical back button its safe 
-        //    // to cover the both events
-
-        //    // retrieve the current xamarin forms page instance
-        //    var currentpage = (StopBackContentPage)
-        //    Xamarin.Forms.Application.
-        //    Current.MainPage.Navigation.
-        //    NavigationStack.LastOrDefault();
-
-        //    // check if the page has subscribed to 
-        //    // the custom back button event
-        //    if (currentpage?.CustomBackButtonAction != null)
-        //    {
-        //        currentpage?.CustomBackButtonAction.Invoke();
-        //    }
-        //    else
-        //    {
-        //        base.OnBackPressed();
-        //    }
-        //}
+       
     }
 }

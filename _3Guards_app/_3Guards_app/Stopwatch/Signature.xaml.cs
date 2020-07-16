@@ -28,7 +28,7 @@ namespace _3Guards_app
             Stream SafetySigbitmap = await NeutralSig.GetImageStreamAsync(SignatureImageFormat.Png);
             if (ConductingSigbitmap == null || SupervisingSigbitmap == null || SafetySigbitmap == null)
             {
-                await DisplayAlert("Alert", "Please get the required signature to Proceed", "OK");
+                await DisplayAlert("Missing Signatures", "Please get all required signatures to Proceed", "OK");
                 return;
             }
             else

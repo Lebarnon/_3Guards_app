@@ -6,9 +6,6 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
             x:Class="_3Guards_app.StopwatchPage">
-    <NavigationPage.TitleView>
-        <!--<Label Text="Stopwatch" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>-->
-    </NavigationPage.TitleView>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Results"
                      Clicked="OnResultsPageClicked" />
@@ -29,8 +26,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.25*"/>
                 <RowDefinition Height="2.25*"/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1.25*"/>
+                <RowDefinition Height="0.75*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -57,7 +54,7 @@
             <!--right side button-->
             <Button Grid.Row="2" x:Name="btnLapReset" Text="Lap" Clicked="BtnLapReset_Clicked"/>
             <!--Save Button-->
-            <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False" Margin="0,0,25,0"/>
+            <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnSave" Text="Save" Clicked="BtnSave_Clicked" IsVisible="False" VerticalOptions="Start"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

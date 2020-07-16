@@ -5,18 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="_3Guards_app.MainPage"
-             Title="3 Guards">
-        
-    <NavigationPage.TitleView>
-        <Label Text="3 Guards" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" TextColor="White"/>
-        <!--<Frame HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" CornerRadius="5" WidthRequest="50" HeightRequest="50" Padding="0">
-            <Image Source="_3GuardsLogoMain.png"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand"
-               BackgroundColor="Transparent"
-                   />
-        </Frame>-->
-    </NavigationPage.TitleView>
+             NavigationPage.HasNavigationBar="False">
+            
+    <!--<NavigationPage.TitleView>
+        <Label Text="Home" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+    </NavigationPage.TitleView>-->
     <StackLayout>
         <!-- Place new controls here -->
             <Grid x:Name="StopwatchGrid" Margin="10,10,10,10">
@@ -32,12 +25,12 @@
                         <Setter Property="VerticalOptions" Value="FillAndExpand"/>
                         <Setter Property="CornerRadius" Value="10"/>
                         <Setter Property="BackgroundColor" Value="White"/>
-                    <Setter Property="Margin" Value="5,5,5,5"/>
-                    <Setter Property="Padding" Value="0"/>
-                </Style>
+                        <Setter Property="Margin" Value="5,5,5,5"/>
+                        <Setter Property="Padding" Value="0"/>
+                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.65*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -46,25 +39,21 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
-                <Frame Grid.Row="0" Grid.Column="0" HasShadow="True">
-                    <ImageButton  Source="StopwatchMain.png" Clicked="OnStopwatchPageClicked"/>
-                </Frame>
-                <Frame Grid.Row="0" Grid.Column="1" HasShadow="True">
-                <ImageButton  Source="SafetyMain.png" Clicked="OnEmptyClicked"/>
+                <Frame Grid.Row="0" Grid.ColumnSpan="2" HasShadow="True" BackgroundColor="Transparent">
+                <Image Source="_3Guards_LogoMain.png"/>
                 </Frame>
                 <Frame Grid.Row="1" Grid.Column="0" HasShadow="True">
-                <ImageButton  Source="DOHelperMain.png" Clicked="OnEmptyClicked"/>
+                    <ImageButton  Source="StopwatchMain.png" Clicked="OnStopwatchPageClicked"/>
                 </Frame>
                 <Frame Grid.Row="1" Grid.Column="1" HasShadow="True">
+                <ImageButton  Source="SafetyMain.png" Clicked="OnEmptyClicked"/>
+                </Frame>
+                <Frame Grid.Row="2" Grid.Column="0" HasShadow="True">
+                <ImageButton  Source="DOHelperMain.png" Clicked="OnEmptyClicked"/>
+                </Frame>
+                <Frame Grid.Row="2" Grid.Column="1" HasShadow="True">
                 <ImageButton  Source="RemindersMain.png" Clicked="OnEmptyClicked"/>
                 </Frame>    
-            <!--<ImageButton Grid.Row="0" Grid.Column="0" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
-                <ImageButton Grid.Row="0" Grid.Column="1" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
-                <ImageButton Grid.Row="1" Grid.Column="0" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
-                <ImageButton Grid.Row="1" Grid.Column="1" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
-                <ImageButton Grid.Row="2" Grid.Column="0" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>
-                <ImageButton Grid.Row="2" Grid.Column="1" Source="stopwatch.png" Clicked="OnStopwatchPageClicked"/>-->
             </Grid>
        
     </StackLayout>

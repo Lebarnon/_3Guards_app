@@ -35,23 +35,7 @@ namespace _3Guards_app
         public StopwatchPage()
         {
             InitializeComponent();
-
-            //if (EnableBackButtonOverride)
-            //{
-            //    this.CustomBackButtonAction = async () =>
-            //    {
-            //        var result = await this.DisplayAlert(null,
-            //            "Hey wait now! are you sure " +
-            //            "you want to go back?",
-            //            "Yes go back", "Nope");
-
-            //        if (result)
-            //        {
-            //            await Navigation.PopAsync(true);
-            //        }
-            //    };
-            //}
-
+            
             stopwatch = new System.Diagnostics.Stopwatch();
 
             //only start button
@@ -112,7 +96,14 @@ namespace _3Guards_app
                 btnLapReset.Text = "Reset";
                 btnLapReset.TextColor = Color.White;
                 btnLapReset.BackgroundColor = Color.FromHex("#a60000");
-                btnSave.IsVisible = true;
+
+                if (timingID < 1)
+                {
+                    btnSave.IsVisible = false;
+                }
+                else{
+                    btnSave.IsVisible = true;
+                }
             }
         }
         private async void BtnLapReset_Clicked(Object sender, EventArgs e)
@@ -170,8 +161,9 @@ namespace _3Guards_app
                 else //Check if company name 
                 {
                     string resultname = await DisplayPromptAsync("Company Involved", "", placeholder: "Company");
-                    if(resultname == null)
+                    if(resultname == null || resultname == "")
                     {
+                        await DisplayAlert("Missing Name", "Please enter a name", "OK");
                         return;
                     }
                     else

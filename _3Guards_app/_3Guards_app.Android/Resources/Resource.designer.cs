@@ -8488,11 +8488,11 @@ namespace _3Guards_app.Droid
 			// aapt resource value: 0x7F07007D
 			public const int tooltip_frame_light = 2131165309;
 			
-			// aapt resource value: 0x7F070007
-			public const int _3GuardsLogoMain = 2131165191;
-			
 			// aapt resource value: 0x7F070006
-			public const int _3guards_splash = 2131165190;
+			public const int _3Guards_LogoMain = 2131165190;
+			
+			// aapt resource value: 0x7F070007
+			public const int _3guards_splash = 2131165191;
 			
 			static Drawable()
 			{

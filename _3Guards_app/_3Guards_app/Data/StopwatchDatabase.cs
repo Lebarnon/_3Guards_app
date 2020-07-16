@@ -37,16 +37,14 @@ namespace _3Guards_app.Data
 
         public void CheckTables()
         {
-            var isResultTable = _database.QueryAsync<Result>("select ID from Result");
-            var isTimingTable = _database.QueryAsync<Timing>("select ID from TIming");
+            var isResultTable = _database.QueryAsync<Result>("select * from Result");
+            var isTimingTable = _database.QueryAsync<Timing>("select * from Timing");
             if (isResultTable.Result == null)
             {
-                _database.DropTableAsync<Result>().Wait();
                 _database.CreateTableAsync<Result>().Wait();
             }
             else if (isTimingTable.Result == null)
             {
-                _database.DropTableAsync<Timing>().Wait();
                 _database.CreateTableAsync<Timing>().Wait();
             }
             return;

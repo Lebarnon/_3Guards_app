@@ -13,7 +13,9 @@ using System.Diagnostics;
 using PdfSharpCore.Drawing.Layout;
 using _3Guards_app.Stopwatch;
 using PdfSharpCore.Drawing;
-
+using SixLabors.ImageSharp;
+using Image = SixLabors.ImageSharp.Image;
+using SixLabors.ImageSharp.Formats;
 
 namespace _3Guards_app
 {
@@ -64,7 +66,7 @@ namespace _3Guards_app
             //await DrawSignature(gfx, result.ConductingSig, 1);
             /*DrawSignature(gfx, result.SupervisingSig, 2);*/ //FIX THIS NEXT TIME
             //await DrawSignature(gfx, result.SafetySig, 3);
-            DrawTitle(gfx, result.Name);
+            DrawTitle(gfx, result.Name, result.DateCreated.ToString());
             SaveAndOpen(_document, result, true);
         }
         async void OnDeleteButtonClicked(object sender, EventArgs e)
@@ -150,6 +152,7 @@ namespace _3Guards_app
                 rect = new XRect(30 + i * 75, 100, 75, 550);
                 //gfx.DrawRectangle(XBrushes.Blue, rect);
                 tf.DrawString(temp, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+               
             }
         }
 
@@ -157,8 +160,9 @@ namespace _3Guards_app
         private void DrawSignature(XGraphics gfx, string imageFileName, int SigType)
         {
             var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
-            XImage image = XImage.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
 
+            XImage image = XImage.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
+            
 
             XPoint point = new XPoint(100, 700);
             //debug
@@ -178,23 +182,27 @@ namespace _3Guards_app
             //}
         } //TO BE FIXED
        
-        public void DrawTitle(XGraphics gfx, string title)
+        public void DrawTitle(XGraphics gfx, string title, string datetime)
         {
             XRect rect = new XRect(new XPoint(), gfx.PageSize);
             rect.Inflate(-10, -15);
-            XFont font = new XFont("Verdana", 14, XFontStyle.Bold);
-            gfx.DrawString(title, font, XBrushes.MidnightBlue, rect, XStringFormats.TopCenter);
+            XFont font = new XFont("sans-serif", 16, XFontStyle.Bold);
+            gfx.DrawString(title, font, XBrushes.Black, rect, XStringFormats.TopCenter);
 
-            rect.Offset(0, 5);
-            font = new XFont("Verdana", 8, XFontStyle.Italic);
+            rect.Offset(0, 35);
+            font = new XFont("sans-serif", 13, XFontStyle.Italic);
             XStringFormat format = new XStringFormat();
             format.Alignment = XStringAlignment.Near;
             format.LineAlignment = XLineAlignment.Far;
-            gfx.DrawString("Authenticity withnessed by _________", font, XBrushes.DarkOrchid, rect, format);
 
-            font = new XFont("Verdana", 8);
+            string newdatetime = datetime.Remove(datetime.Length - 3);
+            string recordDate = "Recorded on : " + newdatetime + ".";
+            gfx.DrawString(recordDate, font, XBrushes.Black, rect, XStringFormats.TopCenter);
+
+            rect.Offset(0, -38);
+            font = new XFont("sans-serif", 13);
             format.Alignment = XStringAlignment.Center;
-            gfx.DrawString("where will this be", font, XBrushes.DarkOrchid, rect, format);
+            gfx.DrawString("Authenticity Withnessed by _______________.", font, XBrushes.Black, rect, format);
         }
         #endregion
         private static ImageSource GetFromDisk(string imageFileName)
