@@ -10,7 +10,7 @@ namespace _3Guards_app.Droid
         
         public void Open(string fileName)
         {
-            MainActivity.getInstance().PdfOpen(fileName);
+            MainActivity.GetInstance().PdfOpen(fileName);
         }   
     }
 }

@@ -7,7 +7,8 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 
-using Android.Support.V7.App;
+
+using AndroidX.AppCompat.App;
 
 namespace _3Guards_app.Droid
 {
@@ -26,9 +27,8 @@ namespace _3Guards_app.Droid
             base.OnResume();
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
-
-      
-        
-        public override void OnBackPressed() { }
+        public override void OnBackPressed() {
+            return;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace _3Guards_app
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StopwatchPage : ContentPage
     {   
-        readonly System.Diagnostics.Stopwatch stopwatch;
+        readonly System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
         Result result = new Result();
         private int timingID = 0;
         List<Timing> ListOfTimings = new List<Timing>();
@@ -36,7 +36,7 @@ namespace _3Guards_app
         {
             InitializeComponent();
             
-            stopwatch = new System.Diagnostics.Stopwatch();
+            //stopwatch = new System.Diagnostics.Stopwatch();
 
             //only start button
             btnLapReset.IsVisible = false;
@@ -85,6 +85,7 @@ namespace _3Guards_app
                     }
                 }
                 );
+                DisplayAlert("Caution", "Please do not return to the main page as the timer will reset", "OK");
             }
             else if (stopwatch.IsRunning)
             {

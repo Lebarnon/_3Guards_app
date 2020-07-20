@@ -8,11 +8,12 @@ using Android;
 using Environment = Android.OS.Environment;
 using Android.Content;
 using Java.IO;
-using Android.Support.V4.Content;
+
 using Xamarin.Essentials;
 using Android.Views;
 using System.Linq;
 using _3Guards_app;
+using PdfSharpCore.Pdf;
 
 namespace _3Guards_app.Droid
 {
@@ -29,18 +30,21 @@ namespace _3Guards_app.Droid
             base.OnCreate(savedInstanceState);
 
 
-           
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Platform.Init(this, savedInstanceState);
+            Xamarin.Forms.Forms.Init(this, savedInstanceState);
             PdfSharp.Xamarin.Forms.Droid.Platform.Init();
 
             CheckAppPermissions();
 
             LoadApplication(new App());
         }
+        protected override void OnResume()
+        {
+            base.OnResume();
+        }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -62,24 +66,38 @@ namespace _3Guards_app.Droid
             }
         }
 
-        public static MainActivity getInstance()
+        public static MainActivity GetInstance()
         {
             return Instance;
         }
         public void PdfOpen(string fileName)
         {
-            string path = System.IO.Path.Combine(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDocuments).AbsolutePath + "/" + fileName);
+            string path = System.IO.Path.Combine(GetExternalFilesDir(Environment.DirectoryDocuments).AbsolutePath + "/" + fileName);
 
             File file = new File(path);
             Intent intent = new Intent(Intent.ActionView);
             intent.SetFlags(ActivityFlags.NewTask);
             intent.SetFlags(ActivityFlags.GrantReadUriPermission);
-
+            
             var uri = Xamarin.Essentials.FileProvider.GetUriForFile(Instance, Application.Context.PackageName + ".provider", file);
             intent.SetDataAndType(uri, "application/pdf");
             StartActivity(intent);
             //Launcher.OpenAsync(path);
-        }       
-       
+        }
+
+        public void PdfSave(PdfDocument doc, string fileName)
+        {
+            string path = System.IO.Path.Combine(GetExternalFilesDir(Environment.DirectoryDocuments).AbsolutePath + "/" + fileName);
+
+            doc.Save(path);
+            doc.Close();
+
+            global::Xamarin.Forms.Application.Current.MainPage.DisplayAlert(
+                title: "Success",
+                message: $"Your PDF generated and saved in Documents",
+                cancel: "OK");
+
+        }
+
     }
 }

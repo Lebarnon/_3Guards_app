@@ -8,7 +8,7 @@ namespace _3Guards_app
 {
     public partial class App : Application
     {
-        static StopwatchDatabase database;
+        static StopwatchDatabase database = null;
         
         public static StopwatchDatabase Database
         {
@@ -28,17 +28,17 @@ namespace _3Guards_app
             MainPage = new NavigationPage(new MainPage());
         }
 
-        protected override void OnStart()
-        {
+        //protected override void OnStart()
+        //{
 
-        }
-        protected override void OnSleep()
-        {
+        //}
+        //protected override void OnSleep()
+        //{
 
-        }
-        protected override void OnResume()
-        {
+        //}
+        //protected override void OnResume()
+        //{
 
-        }
+        //}
     }
 }

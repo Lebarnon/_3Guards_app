@@ -22,7 +22,7 @@ namespace _3Guards_app
         async void OnStopwatchPageClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new StopwatchPage());
-            App.Database.CheckTables();
+            //App.Database.CheckTables();
         }
         async void OnEmptyClicked(object sender, EventArgs e)
         {

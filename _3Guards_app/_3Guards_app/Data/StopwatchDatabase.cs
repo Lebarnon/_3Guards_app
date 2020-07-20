@@ -10,9 +10,9 @@ using SQLiteNetExtensionsAsync.Extensions;
 
 namespace _3Guards_app.Data
 {
-    public class StopwatchDatabase
+    public class StopwatchDatabase 
     {
-        readonly SQLiteAsyncConnection _database;
+        readonly SQLiteAsyncConnection _database = null;
         
         public StopwatchDatabase(string dppath)
         {
@@ -32,7 +32,6 @@ namespace _3Guards_app.Data
 
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
-
         }
 
         public void CheckTables()

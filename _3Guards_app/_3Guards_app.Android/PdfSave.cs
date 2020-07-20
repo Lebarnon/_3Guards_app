@@ -10,16 +10,7 @@ namespace _3Guards_app.Droid
 	{
 		public void Save(PdfDocument doc, string fileName)
 		{
-			string path = System.IO.Path.Combine(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDocuments).AbsolutePath + "/" +fileName);
-
-			doc.Save(path);
-			doc.Close();
-			
-			global::Xamarin.Forms.Application.Current.MainPage.DisplayAlert(
-				title: "Success",
-				message: $"Your PDF generated and saved in Documents",
-				cancel: "OK");
-			
+			MainActivity.GetInstance().PdfSave(doc, fileName);
 		}
 	}
 }
