@@ -15,6 +15,10 @@ using System.Linq;
 using _3Guards_app;
 using PdfSharpCore.Pdf;
 
+using PdfSharpCore.Utils;
+using SixLabors.ImageSharp.PixelFormats;
+using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
+
 namespace _3Guards_app.Droid
 {
     [Activity(Label = "3Guards", Icon = "@mipmap/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -33,6 +37,7 @@ namespace _3Guards_app.Droid
             Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             PdfSharp.Xamarin.Forms.Droid.Platform.Init();
+            ImageSource.ImageSourceImpl = new ImageSharpImageSource<Rgba32>();
 
             CheckAppPermissions();
 

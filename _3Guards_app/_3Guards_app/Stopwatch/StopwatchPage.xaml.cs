@@ -159,13 +159,35 @@ namespace _3Guards_app
                     await App.Database.DeleteResultAsync(result);
                     await Navigation.PopAsync();
                 }
-                else //Check if company name 
+                else 
                 {
-                    string resultname = await DisplayPromptAsync("Company Involved", "", placeholder: "Company");
-                    if(resultname == null || resultname == "")
-                    {
-                        await DisplayAlert("Missing Name", "Please enter a name", "OK");
+                    string resultname = await DisplayPromptAsync("Company & Type of Activity", "", placeholder: "Company & Activity"); // All the goddamn checks for inputs
+                    if(resultname == null || resultname == "") 
+                    { 
+                        await DisplayAlert("Missing Name of Conduct", "Please enter a name", "OK");
                         return;
+                    }
+                    string ConName = await DisplayPromptAsync("Conducting Officer", "", placeholder: "Name");
+                    if (ConName == null || ConName == "")
+                    {
+                        await DisplayAlert("Missing The name of Conducting officer", "Please enter a name", "OK");
+                        return;
+                    }
+                    string SupName = await DisplayPromptAsync("Supervising Officer", "", placeholder: "Name");
+                    if (SupName == null || SupName == "")
+                    {
+                        await DisplayAlert("Missing The name of Supervising officer", "Please enter a name", "OK");
+                        return;
+                    }
+                    string NeuName = await DisplayPromptAsync("Neutral Officer", "", placeholder: "Name");
+                    if (NeuName == null || NeuName == "")
+                    {
+                        await DisplayAlert("Missing The name of Neutral officer", "Please enter a name", "OK");
+                        return;
+                    }
+                    if (resultname == null || resultname == "" || ConName == null || ConName == "" || SupName == null || SupName == "" || NeuName == null || NeuName == "")
+                    {
+                        await DisplayAlert("An unexpected error occured", "Please try saving again", "OK");
                     }
                     else
                     {
@@ -173,14 +195,17 @@ namespace _3Guards_app
                         {
                             await App.Database.SaveTimingAsync(ListOfTimings[i]);
                         }
+
                         var test = result;
                         result.DateCreated = DateTime.Now;
                         result.Name = resultname;
+                        result.ConductingName = ConName;
+                        result.SupervisingName = SupName;
+                        result.NeutralName = NeuName;
+
                         await App.Database.SaveResultAsync(result);
                         result.Timings = ListOfTimings;
                         await App.Database.PopulateResultTimingList(result);
-
-                        //Navigation.InsertPageBefore(new ResultViewPage { BindingContext = result as Result });
 
                         await Navigation.PushModalAsync(new Signature { BindingContext = result as Result });
                         Navigation.InsertPageBefore(new ResultViewPage { BindingContext = result as Result }, this);

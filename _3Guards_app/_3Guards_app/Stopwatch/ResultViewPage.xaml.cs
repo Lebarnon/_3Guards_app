@@ -62,10 +62,13 @@ namespace _3Guards_app
             PdfDocument _document = new PdfDocument();
             PdfPage page = _document.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);
+            //var test = page.Height; //842
+            //var test2 = page.Width; //595
             DrawTimings(gfx, timings);
-            //await DrawSignature(gfx, result.ConductingSig, 1);
-            /*DrawSignature(gfx, result.SupervisingSig, 2);*/ //FIX THIS NEXT TIME
-            //await DrawSignature(gfx, result.SafetySig, 3);
+            DrawSignature(gfx, result.ConductingSig, 2);
+            DrawSignature(gfx, result.SupervisingSig, 1);
+            DrawSignature(gfx, result.NeutralSig, 3);
+            DrawSigVisual(gfx, result.SupervisingName, result.ConductingName, result.NeutralName);
             DrawTitle(gfx, result.Name, result.DateCreated.ToString());
             SaveAndOpen(_document, result, true);
         }
@@ -122,7 +125,7 @@ namespace _3Guards_app
             //GlobalFontSettings.FontResolver = new FileFontResolver();
             XFont font = new XFont("sans-serif", 10, XFontStyle.Bold);
             XTextFormatter tf = new XTextFormatter(gfx);
-            XRect rect = new XRect(30, 100, 75, 550);
+            XRect rect = new XRect(60, 100, 75, 550);
             // Finding number of Rows needed
             int numOfRow = 1;  
             for (int i = timings.Count(); i > 40; numOfRow++)
@@ -149,38 +152,31 @@ namespace _3Guards_app
 
                 }
 
-                rect = new XRect(30 + i * 75, 100, 75, 550);
+                rect = new XRect(60 + i * 75, 100, 75, 550);
                 //gfx.DrawRectangle(XBrushes.Blue, rect);
                 tf.DrawString(temp, font, XBrushes.Black, rect, XStringFormats.TopLeft);
-               
             }
         }
-
-        
         private void DrawSignature(XGraphics gfx, string imageFileName, int SigType)
         {
             var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
 
             XImage image = XImage.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
-            
-
             XPoint point = new XPoint(100, 700);
-            //debug
-            Debug.Assert(image != null);
-            gfx.DrawImage(image, point);
-            //if(SigType == 1)
-            //{
-            //    gfx.DrawImage(image, point);
-            //}
-            //else if(SigType == 2)
-            //{
-            //    gfx.DrawImage(image, point);
-            //}
-            //else if(SigType == 3)
-            //{
-            //    gfx.DrawImage(image, point);
-            //}
-        } //TO BE FIXED
+            
+            if (SigType == 1)
+            {
+                gfx.DrawImage(image, 60 ,700, 60, 60);
+            }
+            else if (SigType == 2)
+            {
+                gfx.DrawImage(image, 267, 700, 60, 60);
+            }
+            else if (SigType == 3)
+            {
+                gfx.DrawImage(image, 475, 700, 60, 60);
+            }
+        }
        
         public void DrawTitle(XGraphics gfx, string title, string datetime)
         {
@@ -198,19 +194,39 @@ namespace _3Guards_app
             string newdatetime = datetime.Remove(datetime.Length - 3);
             string recordDate = "Recorded on : " + newdatetime + ".";
             gfx.DrawString(recordDate, font, XBrushes.Black, rect, XStringFormats.TopCenter);
+        }
 
-            rect.Offset(0, -38);
-            font = new XFont("sans-serif", 13);
-            format.Alignment = XStringAlignment.Center;
-            gfx.DrawString("Authenticity Withnessed by _______________.", font, XBrushes.Black, rect, format);
+        public void DrawSigVisual(XGraphics gfx, string supN ,string conN, string neuN)
+        {
+            XFont font = new XFont("sans-serif", 12, XFontStyle.Bold);
+            string line = "____________________";
+            string sup = "Supervising";
+            string con = "Conducting";
+            string neu = "Neutral";
+
+            int linepos = 755;
+            int rolespos = 770;
+            int Namepos = 780;
+            //lines
+            gfx.DrawString(line, font, XBrushes.Black, new XRect(55, linepos, 70, 10), XStringFormats.TopCenter);
+            gfx.DrawString(line, font, XBrushes.Black, new XRect(262, linepos, 70, 10), XStringFormats.TopCenter);
+            gfx.DrawString(line, font, XBrushes.Black, new XRect(470, linepos, 70, 10), XStringFormats.TopCenter);
+            //roles
+            gfx.DrawString(sup, font, XBrushes.Black, new XRect(55, rolespos, 70, 40), XStringFormats.TopCenter);
+            gfx.DrawString(con, font, XBrushes.Black, new XRect(262, rolespos, 70, 40), XStringFormats.TopCenter);
+            gfx.DrawString(neu, font, XBrushes.Black, new XRect(470, rolespos, 70, 40), XStringFormats.TopCenter);
+            //Names
+            gfx.DrawString(supN, font, XBrushes.Black, new XRect(55, Namepos, 70, 40), XStringFormats.Center);
+            gfx.DrawString(conN, font, XBrushes.Black, new XRect(262, Namepos, 70, 40), XStringFormats.Center);
+            gfx.DrawString(neuN, font, XBrushes.Black, new XRect(470, Namepos, 70, 40), XStringFormats.Center);
         }
         #endregion
-        private static ImageSource GetFromDisk(string imageFileName)
-        {
-            var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
+        //private static ImageSource GetFromDisk(string imageFileName)
+        //{
+        //    var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
 
-            return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
-        }
+        //    return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
+        //}
 
        
     }
