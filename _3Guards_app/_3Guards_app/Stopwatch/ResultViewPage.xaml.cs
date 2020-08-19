@@ -74,9 +74,18 @@ namespace _3Guards_app
         }
         async void OnDeleteButtonClicked(object sender, EventArgs e)
         {
-            var result = (Result)BindingContext;
-            await App.Database.DeleteResultAsync(result);
-            await Navigation.PopAsync();
+            bool answer = await DisplayAlert("Delete", "Result will be permenantly deleted", "Confirm", "Cancel");
+            if (answer == false)
+            {
+                return;
+            }
+            else if (answer == true)
+            {
+                var result = (Result)BindingContext;
+                await App.Database.DeleteResultAsync(result);
+                await Navigation.PopAsync();
+            }
+               
 
         }
         public async Task GetReadWriteStoragePermission()

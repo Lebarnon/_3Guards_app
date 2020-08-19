@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1.1" android:versionName="1.1" package="com.companyname.x_3guards_app" xmlns:tools="http://schemas.android.com/tools" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="103" android:versionName="1.3" package="com.companyname.x_3guards_app" xmlns:tools="http://schemas.android.com/tools" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
 	<application android:label="_3Guards_app.Android">
 		<provider tools:replace="android:authorities" android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true">

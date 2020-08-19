@@ -24,6 +24,11 @@ namespace _3Guards_app
             await Navigation.PushAsync(new StopwatchPage());
             //App.Database.CheckTables();
         }
+
+        async void OnResultsPageClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ResultsPage());
+        }
         async void OnEmptyClicked(object sender, EventArgs e)
         {
             await DisplayAlert("Sorry!", "This feature will be available in the future", "OK");

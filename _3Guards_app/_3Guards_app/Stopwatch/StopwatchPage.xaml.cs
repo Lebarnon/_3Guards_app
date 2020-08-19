@@ -47,10 +47,6 @@ namespace _3Guards_app
 
             lblStopwatch.Text = "00:00.00";
         }
-        async void OnResultsPageClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ResultsPage());
-        }
         public void BtnStartStop_Clicked(object sender, EventArgs e)
         {
             if (!stopwatch.IsRunning)

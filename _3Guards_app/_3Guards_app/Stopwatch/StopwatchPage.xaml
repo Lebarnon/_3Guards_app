@@ -6,10 +6,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             mc:Ignorable="d"
             x:Class="_3Guards_app.StopwatchPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Results"
-                     Clicked="OnResultsPageClicked" />
-    </ContentPage.ToolbarItems>
+   
     <ContentPage.Content>
         <Grid x:Name="StopwatchGrid" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <Grid.Resources>
