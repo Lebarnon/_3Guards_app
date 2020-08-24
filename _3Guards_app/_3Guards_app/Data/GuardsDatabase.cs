@@ -10,11 +10,11 @@ using SQLiteNetExtensionsAsync.Extensions;
 
 namespace _3Guards_app.Data
 {
-    public class StopwatchDatabase 
+    public class GuardsDatabase 
     {
         readonly SQLiteAsyncConnection _database = null;
         
-        public StopwatchDatabase(string dppath)
+        public GuardsDatabase(string dppath)
         {
             _database = new SQLiteAsyncConnection(dppath);
 
@@ -22,6 +22,9 @@ namespace _3Guards_app.Data
 
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
+
+            _database.CreateTableAsync<Erac>().Wait();
+            _database.CreateTableAsync<EracUser>().Wait();
         }
 
         //for testing purpose only
@@ -30,8 +33,15 @@ namespace _3Guards_app.Data
             _database.DropTableAsync<Result>().Wait();
             _database.DropTableAsync<Timing>().Wait();
 
+            _database.DropTableAsync<Erac>().Wait();
+            _database.DropTableAsync<EracUser>().Wait();
+
+
             _database.CreateTableAsync<Result>().Wait();
             _database.CreateTableAsync<Timing>().Wait();
+
+            _database.CreateTableAsync<Erac>().Wait();
+            _database.CreateTableAsync<EracUser>().Wait();
         }
 
         public void CheckTables()
