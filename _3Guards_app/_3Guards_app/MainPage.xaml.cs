@@ -29,6 +29,10 @@ namespace _3Guards_app
         {
             await Navigation.PushAsync(new ResultsPage());
         }
+        async void OnSafetyPageClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RacForm());
+        }
         async void OnEmptyClicked(object sender, EventArgs e)
         {
             await DisplayAlert("Sorry!", "This feature will be available in the future", "OK");

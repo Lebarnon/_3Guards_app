@@ -48,10 +48,10 @@
                 <Frame Grid.Row="1" Grid.Column="1" HasShadow="True">
                 <ImageButton  Source="ResultsMain.png" Clicked="OnResultsPageClicked"/>
                 </Frame>
-                <!--<Frame Grid.Row="2" Grid.Column="0" HasShadow="True">
-                <ImageButton  Source="DOHelperMain.png" Clicked="OnEmptyClicked"/>
+                <Frame Grid.Row="2" Grid.Column="0" HasShadow="True">
+                <ImageButton  Source="SafetyMain.png" Clicked="OnSafetyPageClicked"/>
                 </Frame>
-                <Frame Grid.Row="2" Grid.Column="1" HasShadow="True">
+                <!--<Frame Grid.Row="2" Grid.Column="1" HasShadow="True">
                 <ImageButton  Source="RemindersMain.png" Clicked="OnEmptyClicked"/>
                 </Frame>-->    
             </Grid>

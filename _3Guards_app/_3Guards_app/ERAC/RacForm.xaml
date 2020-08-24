@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="_3Guards_app.RacForm">
+    <ContentPage.Resources>
+        
+      
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid x:Name="FormGrid" Margin="20,35,20,20" RowSpacing="10">
+                <Grid.Resources>
+                    <Style TargetType="Switch">
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="OnColor" Value="Green"/>
+                        <Setter Property="ThumbColor" Value="LightSlateGray"/>
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                    </Style>
+                    <Style TargetType="Button">
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Text="RAC for:"/>
+                
+                <Label Grid.Row="1" Text="I have 7 hours of uninterrupted rest the night before."/>
+                <Switch x:Name="Q1" Grid.Row="1" Grid.Column="1"/>
+
+                <Label Grid.Row="2" Text="I have done my water hydration regime prior to the activity."/>
+                <Switch x:Name="Q2" Grid.Row="2" Grid.Column="1"/>
+
+                <Label Grid.Row="3" Text="I have taken my temperature prior to any physical/strenuous activty."/>
+                <Switch x:Name="Q3" Grid.Row="3" Grid.Column="1"/>
+
+                <Label Grid.Row="4" Text="I am not on any form of medication."/>
+                <Switch x:Name="Q4" Grid.Row="4" Grid.Column="1"/>
+
+                <Label Grid.Row="5" Text="I am wearing the coloured band according to my medical/physical status."/>
+                <Switch x:Name="Q5" Grid.Row="5" Grid.Column="1"/>
+
+                <Label Grid.Row="6" Text="I am feeling well physically and mentally."/>
+                <Switch x:Name="Q6" Grid.Row="6" Grid.Column="1"/>
+
+                <Label Grid.Row="7" Text="I do not have personal problems."/>
+                <Switch x:Name="Q7" Grid.Row="7" Grid.Column="1"/>
+
+                <Label Grid.Row="8" Text="I did not miss out on any lesson before this task."/>
+                <Switch x:Name="Q8" Grid.Row="8" Grid.Column="1"/>
+
+                <Label Grid.Row="9" Text="The training environment is not hazardous."/>
+                <Switch x:Name="Q9" Grid.Row="9" Grid.Column="1"/>
+
+                <Label Grid.Row="10" Text="All of my personal equipment is in working order."/>
+                <Switch x:Name="Q10" Grid.Row="10" Grid.Column="1"/>
+
+                <Button Grid.Row="11" Grid.ColumnSpan="2" Text="Submit RAC"/>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
