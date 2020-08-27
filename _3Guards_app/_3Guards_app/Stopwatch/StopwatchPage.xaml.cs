@@ -134,7 +134,6 @@ namespace _3Guards_app
             }
             else if (stopwatch.IsRunning)
             {
-                btnLapReset.Text = "Lap";
                 timingID++;
                 string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
                 DisplayTimings.Add(new DisplayTiming { Duration = time });

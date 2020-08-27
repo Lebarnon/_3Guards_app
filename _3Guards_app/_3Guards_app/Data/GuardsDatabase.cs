@@ -46,13 +46,13 @@ namespace _3Guards_app.Data
 
         public void CheckTables()
         {
-            var isResultTable = _database.QueryAsync<Result>("select * from Result");
-            var isTimingTable = _database.QueryAsync<Timing>("select * from Timing");
-            if (isResultTable.Result == null)
+            var isResultTable = GetResultsAsync();
+            var isTimingTable = GetAllTimingsAsync();
+            if (isResultTable == null)
             {
                 _database.CreateTableAsync<Result>().Wait();
             }
-            else if (isTimingTable.Result == null)
+            else if (isTimingTable == null)
             {
                 _database.CreateTableAsync<Timing>().Wait();
             }
@@ -103,7 +103,14 @@ namespace _3Guards_app.Data
             return _database.UpdateWithChildrenAsync(result);
         }
 
+
+
         //FOR TIMING//
+        //Get the Whole timing table for ANY result
+        public Task<List<Timing>> GetAllTimingsAsync()
+        {
+            return _database.Table<Timing>().ToListAsync();
+        }
         //Get the WHOLE timing table for a specific result as a list
         public Task<List<Timing>> GetTimingsAsync(int id)
         {
