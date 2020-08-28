@@ -11,6 +11,6 @@ namespace _3Guards_app.Models
         public string Nric { get; set; }
 
         [ForeignKey(typeof(Erac))]
-        public int ResultID { get; set; }
+        public int EracID { get; set; }
     }
 }

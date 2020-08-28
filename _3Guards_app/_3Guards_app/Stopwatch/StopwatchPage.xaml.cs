@@ -136,8 +136,10 @@ namespace _3Guards_app
             {
                 timingID++;
                 string time = timingID.ToString() + " : " + stopwatch.Elapsed.ToString(@"mm\:ss\.ff");
-                DisplayTimings.Add(new DisplayTiming { Duration = time });
+                var time1 = new DisplayTiming { Duration = time };
+                DisplayTimings.Add(time1);
                 ListOfTimings.Add(FactoryOfTiming(time));
+                DisplayTimingsView.ScrollTo(time1, ScrollToPosition.End, true) ;
             }
         }
         async void BtnSave_Clicked(object sender, EventArgs e)

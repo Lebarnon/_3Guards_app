@@ -47,15 +47,12 @@ namespace _3Guards_app.Data
         public void CheckTables()
         {
             var isResultTable = GetResultsAsync();
-            var isTimingTable = GetAllTimingsAsync();
+           
             if (isResultTable == null)
             {
                 _database.CreateTableAsync<Result>().Wait();
             }
-            else if (isTimingTable == null)
-            {
-                _database.CreateTableAsync<Timing>().Wait();
-            }
+            
             return;
           
             //bool ResultTableExist = _database.GetTableInfoAsync(App.Database.Table<Result>.ToString) ;
@@ -90,7 +87,7 @@ namespace _3Guards_app.Data
 
         public async Task<int> DeleteResultAsync(Result result)
         {
-            var timings = await App.Database.GetTimingsAsync(result.ID);
+            var timings = result.Timings;
             foreach (var Timing in timings)
             {
                 await _database.DeleteAsync(Timing);
@@ -107,22 +104,22 @@ namespace _3Guards_app.Data
 
         //FOR TIMING//
         //Get the Whole timing table for ANY result
-        public Task<List<Timing>> GetAllTimingsAsync()
-        {
-            return _database.Table<Timing>().ToListAsync();
-        }
-        //Get the WHOLE timing table for a specific result as a list
-        public Task<List<Timing>> GetTimingsAsync(int id)
-        {
-            return _database.Table<Timing>().Where(i => i.ResultID == id).ToListAsync();
-        }
+        //public Task<List<Timing>> GetAllTimingsAsync()
+        //{
+        //    return _database.Table<Timing>().ToListAsync();
+        //}
+        ////Get the WHOLE timing table for a specific result as a list
+        //public Task<List<Timing>> GetTimingsAsync(int id)
+        //{
+        //    return _database.Table<Timing>().Where(i => i.ResultID == id).ToListAsync();
+        //}
 
             
-        //Get the INDIVIDUAL timing from result table
-        public Task<Timing> GetTimingAsync(int id)
-        {
-            return _database.Table<Timing>().Where(i => i.ID == id).FirstOrDefaultAsync();
-        }
+        ////Get the INDIVIDUAL timing from result table
+        //public Task<Timing> GetTimingAsync(int id)
+        //{
+        //    return _database.Table<Timing>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        //}
 
 
         //Creates a new timing in timing table 

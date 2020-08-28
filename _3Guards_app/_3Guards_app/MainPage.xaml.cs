@@ -31,7 +31,7 @@ namespace _3Guards_app
         }
         async void OnSafetyPageClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RacForm());
+            await Navigation.PushAsync(new PartyFormPage());
         }
         async void OnEmptyClicked(object sender, EventArgs e)
         {

@@ -27,12 +27,12 @@ namespace _3Guards_app
             InitializeComponent();
 
         }
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
             var result = (Result)BindingContext;
-            var timings = await App.Database.GetTimingsAsync(result.ID);
+            var timings = result.Timings;
 
             listView.ItemsSource = timings;
 
@@ -55,7 +55,7 @@ namespace _3Guards_app
         private async void GeneratePDF(object sender, EventArgs e) // Saving as PDF
         {
             var result = (Result)BindingContext;
-            List<Timing> timings = await App.Database.GetTimingsAsync(result.ID);
+            List<Timing> timings = result.Timings;
             //checking permissions
             await GetReadWriteStoragePermission();
             
@@ -230,13 +230,5 @@ namespace _3Guards_app
             gfx.DrawString(neuN, font, XBrushes.Black, new XRect(470, Namepos, 70, 40), XStringFormats.Center);
         }
         #endregion
-        //private static ImageSource GetFromDisk(string imageFileName)
-        //{
-        //    var imageAsBase64String = Preferences.Get(imageFileName, string.Empty);
-
-        //    return ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageAsBase64String)));
-        //}
-
-       
     }
 }   
