@@ -30,14 +30,14 @@ namespace _3Guards_app.Droid
             Instance = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            try { PdfSharp.Xamarin.Forms.Droid.Platform.Init(); } catch { }
+            ImageSource.ImageSourceImpl = new ImageSharpImageSource<Rgba32>();
 
             base.OnCreate(savedInstanceState);
 
-
             Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            PdfSharp.Xamarin.Forms.Droid.Platform.Init();
-            ImageSource.ImageSourceImpl = new ImageSharpImageSource<Rgba32>();
+            
 
             CheckAppPermissions();
 

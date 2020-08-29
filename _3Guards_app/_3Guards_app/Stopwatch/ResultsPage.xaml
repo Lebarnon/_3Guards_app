@@ -16,10 +16,13 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete All"
-                 Clicked="OnDeleteAllButtonClicked"
-                 Order="Secondary"
-                 Priority="0" />
+        <ToolbarItem 
+            x:Name="Toolbar"
+            Text="Delete All"
+            Clicked="OnDeleteAllButtonClicked"
+            Order="Primary"
+            Priority="0" />
+       
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

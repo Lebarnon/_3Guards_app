@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="_3Guards_app.ERAC.PartyInfoPage">
+    <ContentPage.Resources>
+        <Style TargetType="Entry">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HeightRequest" Value="40"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Participant"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Entry x:Name="Rank" Placeholder="Rank"/>
+            <Entry x:Name="Name" Placeholder="Surname GivenName"/>
+            <Entry x:Name="NRIC" Placeholder="TXXXX123A"/>
+            <StackLayout VerticalOptions="EndAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Button HorizontalOptions="Start"
+                  Text="Add"
+                  Command="{Binding AddCommand}">
+                        <!--Don't use Button.Clicked for logic-->
+                    </Button>
+                    <Button HorizontalOptions="End"
+                  Text="Cancel"
+                  Command="{Binding CancelCommand}">
+                        <!--Don't use Button.Clicked for logic-->
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

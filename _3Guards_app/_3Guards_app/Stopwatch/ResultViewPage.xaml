@@ -8,11 +8,11 @@
     <NavigationPage.TitleView>
         <Label Text="{Binding Name}" HorizontalOptions="Center" FontSize="16" FontAttributes="Bold" TextColor="White"/>
     </NavigationPage.TitleView>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Signatures"
+    <!--<ContentPage.ToolbarItems>
+        --><!--<ToolbarItem Text="Signatures"
                  Clicked="OnSignatureViewClicked"
                  Order="Secondary"
-                 Priority="0" />
+                 Priority="0"></ToolbarItem>
         <ToolbarItem Text="Save as PDF"
                  Clicked="GeneratePDF"
                  Order="Secondary"
@@ -20,8 +20,12 @@
         <ToolbarItem Text="Delete"
                  Clicked="OnDeleteButtonClicked"
                  Order="Secondary"
-                 Priority="2" />
-    </ContentPage.ToolbarItems>
+                 Priority="2" />-->
+        <!--<OnPlatform x:TypeArguments="ToolbarItem">
+            <On Platform="iOS" Value="Primary"> </On>
+            <On Platform="Android, UWP" Value="Secondary" />
+        </OnPlatform>--><!--
+    </ContentPage.ToolbarItems>-->
     <ContentPage.Content>
         <StackLayout x:Name="mainView">
             <ListView x:Name="listView" SelectionMode="None">

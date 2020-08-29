@@ -16,6 +16,7 @@ using PdfSharpCore.Drawing;
 using SixLabors.ImageSharp;
 using Image = SixLabors.ImageSharp.Image;
 using SixLabors.ImageSharp.Formats;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace _3Guards_app
 {
@@ -26,36 +27,73 @@ namespace _3Guards_app
         {
             InitializeComponent();
 
+            if (Device.RuntimePlatform == Device.Android || Device.RuntimePlatform == Device.UWP)
+            {
+                ToolbarItem SigItem = new ToolbarItem
+                {
+                    Text = "View Signatures",
+                    Order = ToolbarItemOrder.Secondary,
+                    Priority = 0
+                };
+                SigItem.Clicked += OnSignatureViewClicked;
+                this.ToolbarItems.Add(SigItem);
+
+                ToolbarItem PdfItem = new ToolbarItem
+                {
+                    Text = "Save as PDF",
+                    Order = ToolbarItemOrder.Secondary,
+                    Priority = 1
+                };
+                PdfItem.Clicked += OnGeneratePDF;
+                this.ToolbarItems.Add(PdfItem);
+
+                ToolbarItem DeleteItem = new ToolbarItem
+                {
+                    Text = "Delete",
+                    Order = ToolbarItemOrder.Secondary,
+                    Priority = 2
+                };
+                DeleteItem.Clicked += OnDeleteButtonClicked;
+                this.ToolbarItems.Add(DeleteItem);
+            }
+            else if (Device.RuntimePlatform == Device.iOS)
+            {
+                ToolbarItem MoreItem = new ToolbarItem
+                {
+                    Text = "More",
+                    Order = ToolbarItemOrder.Primary,
+                    Priority = 0
+                };
+                MoreItem.Clicked += OnMoreClicked;
+                this.ToolbarItems.Add(MoreItem);
+            }
+
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            var result = (Result)BindingContext;
-            var timings = result.Timings;
+            Result result = (Result)BindingContext;
+            List<Timing> timings= App.Database.GetResultTimingList(result.ID).Result;
 
             listView.ItemsSource = timings;
-
-            //Conducting.Source = GetFromDisk(result.ConductingSig);
-            //Supervising.Source = GetFromDisk(result.SupervisingSig);
-            //Safety.Source = GetFromDisk(result.SafetySig);
 
         }
         async void OnSignatureViewClicked(object sender, EventArgs e)
         {
-
             await Navigation.PushAsync(new SignatureViewPage
             {
                 BindingContext = (Result)BindingContext as Result
             }) ;
-            
         }
-
-
-        private async void GeneratePDF(object sender, EventArgs e) // Saving as PDF
+        private void OnGeneratePDF(Object sender, EventArgs e) // Saving as PDF
+        {
+            GeneratePDF();
+        }
+        private async void GeneratePDF() // Saving as PDF
         {
             var result = (Result)BindingContext;
-            List<Timing> timings = result.Timings;
+            List<Timing> timings = App.Database.GetResultTimingList(result.ID).Result;
             //checking permissions
             await GetReadWriteStoragePermission();
             
@@ -85,8 +123,27 @@ namespace _3Guards_app
                 await App.Database.DeleteResultAsync(result);
                 await Navigation.PopAsync();
             }
-               
-
+        }
+        private async void OnMoreClicked(object sender, EventArgs e)
+        {
+            string action = await DisplayActionSheet("ActionSheet: More Options", "Delete", "View Signatures", "Save as PDF");
+            switch (action)
+            {
+                case "Delete":
+                    var result = (Result)BindingContext;
+                    await App.Database.DeleteResultAsync(result);
+                    await Navigation.PopAsync();
+                    break;
+                case "View Signatures":
+                    await Navigation.PushAsync(new SignatureViewPage
+                    {
+                        BindingContext = (Result)BindingContext as Result
+                    });
+                    break;
+                case "Save as PDF":
+                    GeneratePDF();
+                    break;
+            }
         }
         public async Task GetReadWriteStoragePermission()
         {

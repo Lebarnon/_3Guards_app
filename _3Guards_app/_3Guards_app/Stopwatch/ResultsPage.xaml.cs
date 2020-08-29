@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using _3Guards_app.Models;
 using _3Guards_app.Data;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace _3Guards_app
 {
@@ -69,9 +70,8 @@ namespace _3Guards_app
             {
                 return;
             }
-           
-
         }
+           
         async void RefreshList() 
         {
             listView.ItemsSource = null;

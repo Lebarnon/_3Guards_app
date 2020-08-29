@@ -87,7 +87,7 @@ namespace _3Guards_app.Data
 
         public async Task<int> DeleteResultAsync(Result result)
         {
-            var timings = result.Timings;
+            var timings = GetResultTimingList(result.ID).Result;
             foreach (var Timing in timings)
             {
                 await _database.DeleteAsync(Timing);
@@ -98,6 +98,11 @@ namespace _3Guards_app.Data
         public Task PopulateResultTimingList(Result result)
         {
             return _database.UpdateWithChildrenAsync(result);
+        }
+        
+        public Task<List<Timing>> GetResultTimingList(int id)
+        {
+            return _database.Table<Timing>().Where(i => i.ResultID == id).ToListAsync();
         }
 
 

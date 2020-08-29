@@ -17,9 +17,9 @@ namespace _3Guards_app.iOS
             parent = controller;
         }
 
-        public override UIViewController ViewControllerForPreview(UIDocumentInteractionController controller)
+        public override UIView ViewForPreview(UIDocumentInteractionController controller)
         {
-            return parent;
+            return parent.View;
         }
     }
 }

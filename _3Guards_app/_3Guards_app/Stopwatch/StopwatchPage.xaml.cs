@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using _3Guards_app.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Markup;
 
 namespace _3Guards_app
 {

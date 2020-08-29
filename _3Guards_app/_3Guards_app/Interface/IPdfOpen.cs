@@ -1,5 +1,4 @@
-﻿
-namespace _3Guards_app
+﻿namespace _3Guards_app
 {
 	public interface IPdfOpen
 	{

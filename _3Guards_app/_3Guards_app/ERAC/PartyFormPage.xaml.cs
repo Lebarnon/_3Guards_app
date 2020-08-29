@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3Guards_app.ERAC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,27 +17,9 @@ namespace _3Guards_app
         {
             InitializeComponent();
         }
-        private void OnAddPartyClicked(object sender, EventArgs e)
+        private async void OnAddPartyClicked(object sender, EventArgs e)
         {
-
-            // c = CURRENT
-            int cGridrow = 1;
-            int cGridcol = 0;
-            if(cGridcol > 3)
-            {
-                cGridcol = 0;
-                return;
-            }
-
-            string cRank = cGridcol.ToString() + cGridrow.ToString() + "NRIC";
-            string cName = cGridcol.ToString() + cGridrow.ToString() + "NRIC";
-            string cNRIC = cGridcol.ToString() + cGridrow.ToString() + "NRIC";
-
-            Participants.Children.Add(new Entry {
-                Placeholder = "hi", 
-            }, 1, 0) ;
-
-            
+            await Navigation.PushModalAsync(new PartyInfoPage());
         }
 
         private async void OnConfirmClicked(object sender, EventArgs e)
