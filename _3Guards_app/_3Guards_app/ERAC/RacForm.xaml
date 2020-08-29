@@ -77,7 +77,7 @@
                 <Label Grid.Row="10" Text="All of my personal equipment is in working order."/>
                 <Switch x:Name="Q10" Grid.Row="10" Grid.Column="1"/>
 
-                <Button Grid.Row="11" Grid.ColumnSpan="2" Text="Submit RAC"/>
+                <Button Grid.Row="11" Grid.ColumnSpan="2" Text="Submit RAC" Clicked="OnSubmitClicked"/>
             </Grid>
         </ScrollView>
     </ContentPage.Content>

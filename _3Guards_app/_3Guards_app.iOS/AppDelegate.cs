@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
+using PdfSharpCore.Utils;
+using SixLabors.ImageSharp.PixelFormats;
 using UIKit;
 
 namespace _3Guards_app.iOS
@@ -22,7 +25,9 @@ namespace _3Guards_app.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+            Xamarin.Forms.Forms.Init();
+            PdfSharp.Xamarin.Forms.iOS.Platform.Init();
+            ImageSource.ImageSourceImpl = new ImageSharpImageSource<Rgba32>();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
