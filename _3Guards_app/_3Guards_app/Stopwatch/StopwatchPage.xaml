@@ -18,6 +18,7 @@
                     <Setter Property="CornerRadius" Value="10"/>
                     <Setter Property="FontAttributes" Value="Bold"/>
                     <Setter Property="BackgroundColor" Value="White"/>
+                    <Setter Property="WidthRequest" Value="100"/>
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>

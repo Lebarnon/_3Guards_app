@@ -14,11 +14,14 @@
             <Setter Property="FontSize" Value="20"/>
         </Style>
         <Style TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="Margin" Value="50,25,50,0"/>
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>

@@ -126,9 +126,12 @@ namespace _3Guards_app
         }
         private async void OnMoreClicked(object sender, EventArgs e)
         {
-            string action = await DisplayActionSheet("ActionSheet: More Options", "Delete", "View Signatures", "Save as PDF");
+            string action = await DisplayActionSheet("More Options", "Save as PDF", "Delete", "View Signatures");
             switch (action)
             {
+                case "Save as PDF":
+                    GeneratePDF();
+                    break;
                 case "Delete":
                     var result = (Result)BindingContext;
                     await App.Database.DeleteResultAsync(result);
@@ -140,9 +143,7 @@ namespace _3Guards_app
                         BindingContext = (Result)BindingContext as Result
                     });
                     break;
-                case "Save as PDF":
-                    GeneratePDF();
-                    break;
+               
             }
         }
         public async Task GetReadWriteStoragePermission()

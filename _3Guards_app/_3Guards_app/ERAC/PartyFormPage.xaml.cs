@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using _3Guards_app.Models;
 
 namespace _3Guards_app
 {
@@ -19,7 +20,11 @@ namespace _3Guards_app
         }
         private async void OnAddPartyClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new PartyInfoPage());
+            EracUser newUser = new EracUser();
+            await Navigation.PushModalAsync(new PartyInfoPage
+            {
+                BindingContext = newUser as EracUser
+            });
         }
 
         private async void OnConfirmClicked(object sender, EventArgs e)

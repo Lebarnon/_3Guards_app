@@ -10,28 +10,45 @@
             <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="HeightRequest" Value="60"/>
+            <Setter Property="WidthRequest" Value="300"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="BackgroundColor" Value="White"/> 
+            <Setter Property="WidthRequest" Value="100"/>
+            <Setter Property="Margin" Value="50,0"/>
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Participant"
+            <Label Text="New Participant"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Entry x:Name="Rank" Placeholder="Rank"/>
-            <Entry x:Name="Name" Placeholder="Surname GivenName"/>
-            <Entry x:Name="NRIC" Placeholder="TXXXX123A"/>
-            <StackLayout VerticalOptions="EndAndExpand">
-                <StackLayout Orientation="Horizontal">
+                HorizontalOptions="CenterAndExpand"
+                TextColor="Black"
+                FontAttributes="Bold"
+                FontSize="30"
+                Margin="0,30,0,30"/>
+            <Entry x:Name="Rank" Placeholder="Rank" MaxLength="3"/>
+            <Entry x:Name="Name" Placeholder="Surname GivenName" MaxLength="50"/>
+            <Entry x:Name="NRIC" Placeholder="123A" MaxLength="4"/>
+            <StackLayout VerticalOptions="EndAndExpand" Margin="0,0,0,50">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                     <Button HorizontalOptions="Start"
-                  Text="Add"
-                  Command="{Binding AddCommand}">
-                        <!--Don't use Button.Clicked for logic-->
+                    Text="Add"
+                    Clicked="OnAddClicked">
                     </Button>
                     <Button HorizontalOptions="End"
-                  Text="Cancel"
-                  Command="{Binding CancelCommand}">
-                        <!--Don't use Button.Clicked for logic-->
+                    Text="Cancel"
+                    Clicked="OnCancelClicked">
                     </Button>
                 </StackLayout>
             </StackLayout>
