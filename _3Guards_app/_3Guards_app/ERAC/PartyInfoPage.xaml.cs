@@ -11,10 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace _3Guards_app.ERAC
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PartyInfoPage : ContentPage
+    public partial class PartyInfoPage
     {
-       
-
+        //var result = (Result)BindingContext;
         public PartyInfoPage()
         {
             InitializeComponent();

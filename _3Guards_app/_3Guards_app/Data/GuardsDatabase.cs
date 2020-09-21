@@ -106,28 +106,6 @@ namespace _3Guards_app.Data
         }
 
 
-
-        //FOR TIMING//
-        //Get the Whole timing table for ANY result
-        //public Task<List<Timing>> GetAllTimingsAsync()
-        //{
-        //    return _database.Table<Timing>().ToListAsync();
-        //}
-        ////Get the WHOLE timing table for a specific result as a list
-        //public Task<List<Timing>> GetTimingsAsync(int id)
-        //{
-        //    return _database.Table<Timing>().Where(i => i.ResultID == id).ToListAsync();
-        //}
-
-            
-        ////Get the INDIVIDUAL timing from result table
-        //public Task<Timing> GetTimingAsync(int id)
-        //{
-        //    return _database.Table<Timing>().Where(i => i.ID == id).FirstOrDefaultAsync();
-        //}
-
-
-        //Creates a new timing in timing table 
         public Task<int> SaveTimingAsync(Timing timing)
         {
             return _database.InsertAsync(timing);
@@ -136,6 +114,69 @@ namespace _3Guards_app.Data
         {
             return _database.DeleteAsync(timing);
         }
-       
+
+
+
+        // FOR ERAC
+        //
+        //
+
+        //Get the WHOLE Eracs table as a list
+        public Task<List<Erac>> GetEracsAsync()
+        {
+            return _database.Table<Erac>().ToListAsync();
+        }
+
+
+        //Get the INDIVIDUAL results from result table
+        public Task<Erac> GetEracAsync(int id)
+        {
+            return _database.Table<Erac>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        }
+
+
+        //Creates a new result in result table or update 
+        public Task<int> SaveEracAsync(Erac erac)
+        {
+            if (erac.ID != 0)
+            {
+                return _database.UpdateAsync(erac);
+            }
+            else
+            {
+                return _database.InsertAsync(erac);
+            }
+        }
+
+        public async Task<int> DeleteResultAsync(Erac erac)
+        {
+            var eracUsers = GetEracEracUserList(erac.ID).Result;
+            foreach (var eracUser in eracUsers)
+            {
+                await _database.DeleteAsync(eracUser);
+            }
+            return await _database.DeleteAsync(erac);
+        }
+
+        public Task PopulateEracEracUserList(Erac erac)
+        {
+            return _database.UpdateWithChildrenAsync(erac);
+        }
+
+        public Task<List<EracUser>> GetEracEracUserList(int id)
+        {
+            return _database.Table<EracUser>().Where(i => i.EracID == id).ToListAsync();
+        }
+
+
+        public Task<int> SaveEracUserAsync(EracUser eracUser)
+        {
+            return _database.InsertAsync(eracUser);
+        }
+        public Task<int> DeleteEracUserAsync(EracUser eracUser)
+        {
+            return _database.DeleteAsync(eracUser);
+        }
+
     }
 }

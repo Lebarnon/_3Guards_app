@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_3Guards_app.EracMainpage">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="Margin" Value="50,25,50,0"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="listView"
+                    Margin="20"
+                    SelectionMode="Single"
+                    ItemSelected="OnListViewItemSelected" 
+                    HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="60">
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete" 
+                                          Clicked="OnItemDeleteClicked"/>
+                            </ViewCell.ContextActions>
+                            <StackLayout VerticalOptions="StartAndExpand">
+                                <Label Text="{Binding Name}"  TextColor="Black" FontSize="16" />
+                                <Label Text="{Binding DateCreated}"  TextColor="Black" FontSize="14" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="New RAC" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Start"
+                        Clicked="OnNewRACClicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

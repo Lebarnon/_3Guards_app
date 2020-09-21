@@ -40,8 +40,6 @@
                         <Label Grid.Row="0" Grid.Column="0" Text="Rank"/>
                         <Label Grid.Row="0" Grid.Column="1" Text="Name"/>
                         <Label Grid.Row="0" Grid.Column="2" Text="NRIC"/>
-
-
                     </Grid>
                 </StackLayout>
                 <Button Text="Add Participant" 

@@ -5,7 +5,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace _3Guards_app.Models
 {
-    class Erac
+    public class Erac
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
