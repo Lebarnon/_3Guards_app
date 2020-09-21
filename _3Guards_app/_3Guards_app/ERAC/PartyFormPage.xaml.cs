@@ -26,33 +26,46 @@ namespace _3Guards_app
         public PartyFormPage()
         {
             InitializeComponent();
+
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var erac = (Erac)BindingContext;
+            List<EracUser> eracUsers = App.Database.GetEracEracUserList(erac.ID).Result;
+            
+            listView.ItemsSource = eracUsers;
+        }
+
         private async void OnAddPartyClicked(object sender, EventArgs e)
         {
-            EracUser user = new EracUser();
-            await Navigation.PushModalAsync(new PartyInfoPage { BindingContext = user as EracUser });
+            var erac = (Erac)BindingContext;
+            await Navigation.PushModalAsync(new PartyInfoPage { BindingContext = erac as Erac });
         }
 
         private async void OnConfirmClicked(object sender, EventArgs e)
         {
+            var erac = (Erac)BindingContext;
             for (int i = 0; i < eracUsers.Count; i++)
             {
                 await App.Database.SaveEracUserAsync(listOfUser[i]);
             }
 
-            await Navigation.PushAsync(new RacForm());
+            Navigation.InsertPageBefore(new RacForm { BindingContext = erac as Erac }, this);
+            await Navigation.PopAsync();
         }
-        public async void CheckUser(EracUser user)
-        {
-            if(user.Name == null || user.Nric == null|| user.Rank == null)
-            {
-                await DisplayAlert("Failed", "", "Ok");
-            }
-            else
-            {
-                eracUsers.Add(user);
-                listOfUser.Add(user);
-            }
-        }
+        //public async void CheckUser(EracUser user)
+        //{
+        //    if(user.Name == null || user.Nric == null|| user.Rank == null)
+        //    {
+        //        await DisplayAlert("Failed", "", "Ok");
+        //    }
+        //    else
+        //    {
+        //        eracUsers.Add(user);
+        //        listOfUser.Add(user);
+        //    }
+        //}
     }
 }

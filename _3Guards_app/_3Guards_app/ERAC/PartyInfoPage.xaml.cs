@@ -21,11 +21,23 @@ namespace _3Guards_app.ERAC
 
         private async void OnAddClicked(object sender, EventArgs e)
         {
-            EracUser user = (EracUser)BindingContext;
-            user.Name = Name.Text.ToUpper();
-            user.Nric = NRIC.Text.ToUpper();
-            user.Rank = Rank.Text.ToUpper();
-            await Navigation.PopModalAsync();
+            if(Name.Text == null || NRIC.Text == null || Rank.Text == null)
+            {
+                await DisplayAlert("Missing Information", "Some Fields are not filled in", "Ok");
+                return;
+            }
+            else
+            {
+                
+                Erac erac = (Erac)BindingContext;
+                EracUser user = new EracUser();
+                user.Name = Name.Text.ToUpper();
+                user.Nric = NRIC.Text.ToUpper();
+                user.Rank = Rank.Text.ToUpper();
+                SaveUserandLinktoErac(erac, user);
+                await Navigation.PopModalAsync();
+            }
+            
         }
 
         private async void OnCancelClicked(object sender, EventArgs e)
@@ -33,5 +45,11 @@ namespace _3Guards_app.ERAC
             await Navigation.PopModalAsync();
         }
 
+        private async void SaveUserandLinktoErac(Erac erac, EracUser user)
+        {
+            await App.Database.SaveEracUserAsync(user);
+            erac.EracUsers.Add(user);
+            await App.Database.PopulateEracEracQues(erac);
+        }
     }
 }

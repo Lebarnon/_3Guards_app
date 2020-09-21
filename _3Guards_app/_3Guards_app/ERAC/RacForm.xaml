@@ -45,7 +45,7 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Text="RAC for:"/>
+                <Label x:Name="UserNameRow" Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="Start" Text="RAC for:"/>
                 
                 <Label Grid.Row="1" Text="I have 7 hours of uninterrupted rest the night before."/>
                 <Switch x:Name="Q1" Grid.Row="1" Grid.Column="1"/>

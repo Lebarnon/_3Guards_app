@@ -14,5 +14,8 @@ namespace _3Guards_app.Models
 
         [OneToMany]
         public List<EracUser> EracUsers { get; set; }
+
+        [OneToOne]
+        public EracQues EracQuess { get; set; }
     }
 }

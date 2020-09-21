@@ -25,6 +25,7 @@ namespace _3Guards_app.Data
 
             _database.CreateTableAsync<Erac>().Wait();
             _database.CreateTableAsync<EracUser>().Wait();
+            _database.CreateTableAsync<EracQues>().Wait();
         }
 
         //for testing purpose only
@@ -159,6 +160,11 @@ namespace _3Guards_app.Data
         }
 
         public Task PopulateEracEracUserList(Erac erac)
+        {
+            return _database.UpdateWithChildrenAsync(erac);
+        }
+
+        public Task PopulateEracEracQues(Erac erac)
         {
             return _database.UpdateWithChildrenAsync(erac);
         }

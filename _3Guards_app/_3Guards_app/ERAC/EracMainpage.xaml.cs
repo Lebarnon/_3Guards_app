@@ -41,6 +41,10 @@ namespace _3Guards_app
             if (answer == true && resultname != null)
             {
                 Erac erac = new Erac();
+                erac.Name = resultname;
+                erac.DateCreated = DateTime.Now;
+                erac.EracUsers = new List<EracUser>();
+                await App.Database.SaveEracAsync(erac);
                 await Navigation.PushAsync(new PartyFormPage
                 {
                     BindingContext = erac as Erac
